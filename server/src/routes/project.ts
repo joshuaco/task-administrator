@@ -4,13 +4,13 @@ import { handleErrors, projectValidator } from '../middlewares/validations';
 
 const router = Router();
 
-router.get(
+router.get('/', ProjectController.getAllProjects);
+
+router.post(
   '/',
   projectValidator(),
   handleErrors,
-  ProjectController.getAllProjects
+  ProjectController.createProject
 );
-
-router.post('/', ProjectController.createProject);
 
 export default router;
