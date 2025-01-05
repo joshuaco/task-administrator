@@ -1,4 +1,4 @@
-import { validationResult, body } from 'express-validator';
+import { validationResult, body, param } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
 export const handleErrors = (
@@ -23,4 +23,8 @@ export const projectValidator = () => {
     body('clientName').trim().notEmpty().withMessage('Client name is required'),
     body('description').trim().notEmpty().withMessage('Description is required')
   ];
+};
+
+export const projectIDValidator = () => {
+  return [param('id').isMongoId().withMessage('Invalid ID')];
 };
