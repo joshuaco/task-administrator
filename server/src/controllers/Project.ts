@@ -26,7 +26,7 @@ class Project {
       const project = await ProjectModel.findById(req.params.id);
 
       if (!project) {
-        res.status(404).json({ message: 'Project not found' });
+        res.status(404).json({ error: 'Project not found' });
         return;
       }
 
