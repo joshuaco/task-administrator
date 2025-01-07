@@ -6,7 +6,7 @@ class Project {
     const project = new ProjectModel(req.body);
     try {
       await project.save();
-      res.status(201).json(project);
+      res.status(201).json({ data: project });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
