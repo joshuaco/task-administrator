@@ -21,6 +21,15 @@ describe('CREATE Projects', () => {
     expect(response.status).toBe(201);
     expect(response.body.data.projectName).toBe('Test Project');
   });
+
+  it('should not create a project without a required field', async () => {
+    const response = await request.post('/api/projects').send({
+      clientName: 'Test Client',
+      description: 'Test Description'
+    });
+    expect(response.status).toBe(400);
+    expect(response.body.error).includes('Project name is required');
+  });
 });
 
 describe('GET Projects', () => {

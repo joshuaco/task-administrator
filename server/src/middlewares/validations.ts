@@ -1,14 +1,18 @@
 import { validationResult, body, param } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
+const customValidationResult = validationResult.withDefaults({
+  formatter: (error) => error.msg
+});
+
 export const handleErrors = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const errors = validationResult(req);
+  const errors = customValidationResult(req);
   if (!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
+    res.status(400).json({ error: errors.array() });
     return;
   }
   next();
