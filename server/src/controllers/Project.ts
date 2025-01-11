@@ -35,6 +35,40 @@ class Project {
       res.status(400).json({ message: error.message });
     }
   };
+
+  static updateProject = async (req: Request, res: Response) => {
+    try {
+      const project = await ProjectModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+
+      if (!project) {
+        res.status(404).json({ error: 'Project not found' });
+        return;
+      }
+
+      res.status(200).json({ project });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  static deleteProject = async (req: Request, res: Response) => {
+    try {
+      const project = await ProjectModel.findByIdAndDelete(req.params.id);
+
+      if (!project) {
+        res.status(404).json({ error: 'Project not found' });
+        return;
+      }
+
+      res.status(200).json({ message: 'Project deleted successfully' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 export default Project;

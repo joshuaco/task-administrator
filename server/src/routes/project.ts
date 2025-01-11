@@ -24,4 +24,19 @@ router.post(
   ProjectController.createProject
 );
 
+router.put(
+  '/:id',
+  projectIDValidator(),
+  projectValidator(),
+  handleErrors,
+  ProjectController.updateProject
+);
+
+router.delete(
+  '/:id',
+  projectIDValidator(),
+  handleErrors,
+  ProjectController.deleteProject
+);
+
 export default router;
