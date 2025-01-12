@@ -1,16 +1,32 @@
 import mongoose, { Document, ObjectId } from 'mongoose';
 
+const taskStatus = {
+  PENDING: 'pending',
+  COMPLETED: 'completed',
+  IN_PROGRESS: 'in-progress',
+  ON_HOLD: 'on-hold',
+  UNDER_REVIEW: 'under-review'
+} as const;
+
+export type TaskStatus = (typeof taskStatus)[keyof typeof taskStatus];
+
 export type TaskType = Document & {
   name: string;
   description: string;
   project: ObjectId;
+  status: TaskStatus;
 };
 
 const TaskSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
-    project: { type: mongoose.Types.ObjectId, ref: 'Project' }
+    project: { type: mongoose.Types.ObjectId, ref: 'Project' },
+    status: {
+      type: String,
+      enum: Object.values(taskStatus),
+      default: taskStatus.PENDING
+    }
   },
   { timestamps: true }
 );
