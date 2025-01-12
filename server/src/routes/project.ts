@@ -5,7 +5,7 @@ import {
   handleErrors,
   projectValidator,
   projectIDValidator
-} from '../middlewares/validations';
+} from '../middlewares/validators';
 
 const router = Router();
 

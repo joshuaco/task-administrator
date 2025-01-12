@@ -32,3 +32,10 @@ export const projectValidator = () => {
 export const projectIDValidator = () => {
   return [param('id').isMongoId().withMessage('Invalid ID')];
 };
+
+export const taskValidator = () => {
+  return [
+    body('name').trim().notEmpty().withMessage('Task name is required'),
+    body('description').trim().notEmpty().withMessage('Description is required')
+  ];
+};

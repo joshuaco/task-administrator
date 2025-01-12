@@ -7,8 +7,7 @@ class Task {
       const task = new TaskModel(req.body);
       task.project = req.project.id;
       req.project.tasks.push(task.id);
-      await task.save();
-      await req.project.save();
+      await Promise.allSettled([task.save(), req.project.save()]);
       res.status(201).json({ task });
     } catch (error) {
       res.status(400).json({ message: error.message });

@@ -26,6 +26,6 @@ export const validateProjectExists = async (
   } catch (error) {
     res
       .status(500)
-      .json({ error: "There's an error. Please try again later." });
+      .json({ error: "There's an error. Check project ID is correct." });
   }
 };
