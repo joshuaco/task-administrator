@@ -13,6 +13,18 @@ class Task {
       res.status(400).json({ message: error.message });
     }
   };
+
+  static getProjectTasks = async (req: Request, res: Response) => {
+    try {
+      const tasks = await TaskModel.find({ project: req.project.id }).populate(
+        'project',
+        { projectName: 1, clientName: 1 }
+      );
+      res.status(200).json({ tasks });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 export default Task;

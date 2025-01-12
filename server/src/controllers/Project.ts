@@ -23,7 +23,10 @@ class Project {
 
   static getProjectById = async (req: Request, res: Response) => {
     try {
-      const project = await ProjectModel.findById(req.params.id);
+      const project = await ProjectModel.findById(req.params.id).populate(
+        'tasks',
+        { name: 1, description: 1, status: 1 }
+      );
 
       if (!project) {
         res.status(404).json({ error: 'Project not found' });
