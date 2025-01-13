@@ -1,28 +1,54 @@
 import { Router } from 'express';
 import TaskController from '../controllers/Task';
 import { validateProjectExists } from '../middlewares/project';
-import { handleErrors, taskValidator } from '../middlewares/validators';
+import {
+  handleErrors,
+  taskValidator,
+  taskIDValidator,
+  taskStatusValidator
+} from '../middlewares/validators';
 
 const router = Router();
 
+router.param('projectID', validateProjectExists);
+
 router.post(
   '/:projectID/tasks',
-  validateProjectExists,
   taskValidator(),
   handleErrors,
   TaskController.createTask
 );
 
-router.get(
-  '/:projectID/tasks',
-  validateProjectExists,
-  TaskController.getProjectTasks
-);
+router.get('/:projectID/tasks', TaskController.getProjectTasks);
 
 router.get(
   '/:projectID/tasks/:taskID',
-  validateProjectExists,
+  taskIDValidator(),
+  handleErrors,
   TaskController.getTaskById
+);
+
+router.put(
+  '/:projectID/tasks/:taskID',
+  taskIDValidator(),
+  taskValidator(),
+  handleErrors,
+  TaskController.updateTask
+);
+
+router.patch(
+  '/:projectID/tasks/:taskID/status',
+  taskIDValidator(),
+  taskStatusValidator(),
+  handleErrors,
+  TaskController.updateStatus
+);
+
+router.delete(
+  '/:projectID/tasks/:taskID',
+  taskIDValidator(),
+  handleErrors,
+  TaskController.deleteTask
 );
 
 export default router;

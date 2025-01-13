@@ -1,6 +1,6 @@
 import mongoose, { Document, ObjectId } from 'mongoose';
 
-const taskStatus = {
+export const taskStatus = {
   PENDING: 'pending',
   COMPLETED: 'completed',
   IN_PROGRESS: 'in-progress',
