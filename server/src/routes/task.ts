@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import TaskController from '../controllers/Task';
-import { projectExists } from '../middlewares/project';
 import { taskExists } from '../middlewares/task';
+import { projectExists } from '../middlewares/project';
 import {
   handleErrors,
   taskValidator,
@@ -12,7 +12,6 @@ import {
 const router = Router();
 
 router.param('projectID', projectExists);
-router.param('taskID', taskExists);
 
 router.post(
   '/:projectID/tasks',
@@ -27,6 +26,7 @@ router.get(
   '/:projectID/tasks/:taskID',
   taskIDValidator(),
   handleErrors,
+  taskExists,
   TaskController.getTaskById
 );
 
@@ -35,6 +35,7 @@ router.put(
   taskIDValidator(),
   taskValidator(),
   handleErrors,
+  taskExists,
   TaskController.updateTask
 );
 
@@ -43,6 +44,7 @@ router.patch(
   taskIDValidator(),
   taskStatusValidator(),
   handleErrors,
+  taskExists,
   TaskController.updateStatus
 );
 
@@ -50,6 +52,7 @@ router.delete(
   '/:projectID/tasks/:taskID',
   taskIDValidator(),
   handleErrors,
+  taskExists,
   TaskController.deleteTask
 );
 

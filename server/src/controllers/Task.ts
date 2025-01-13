@@ -33,10 +33,6 @@ class Task {
         project: req.project.id
       }).populate('project', { projectName: 1, clientName: 1 });
 
-      if (!task) {
-        res.status(404).json({ error: 'Task not found' });
-        return;
-      }
       res.status(200).json({ task });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -51,11 +47,6 @@ class Task {
         { new: true }
       );
 
-      if (!task) {
-        res.status(404).json({ error: 'Task not found' });
-        return;
-      }
-
       res.status(200).json({ task });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -65,11 +56,6 @@ class Task {
   static deleteTask = async (req: Request, res: Response) => {
     try {
       const task = await TaskModel.findById(req.params.taskID);
-
-      if (!task) {
-        res.status(404).json({ error: 'Task not found' });
-        return;
-      }
 
       await Promise.allSettled([
         req.project.updateOne({ $pull: { tasks: task._id } }),
@@ -84,17 +70,9 @@ class Task {
 
   static updateStatus = async (req: Request, res: Response) => {
     try {
-      const task = await TaskModel.findByIdAndUpdate(
-        req.params.taskID,
-        req.body,
-        { new: true }
-      );
-
-      if (!task) {
-        res.status(404).json({ error: 'Task not found' });
-        return;
-      }
-
+      await TaskModel.findByIdAndUpdate(req.params.taskID, req.body, {
+        new: true
+      });
       res.status(200).json({ message: 'Task status updated successfully' });
     } catch (error) {
       res.status(400).json({ message: error.message });
