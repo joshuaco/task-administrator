@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import Logo from '../components/Logo';
+import Logo from '@/components/Logo';
 
 function App() {
   return (
@@ -11,7 +11,16 @@ function App() {
           </div>
         </div>
       </header>
-      <Outlet />
+
+      <section className='max-w-screen-2xl mx-auto py-4 px-6'>
+        <Outlet />
+      </section>
+
+      <footer className='py-5'>
+        <p className='text-center'>
+          &copy; {new Date().getFullYear()} UpTask. All rights reserved.
+        </p>
+      </footer>
     </>
   );
 }
