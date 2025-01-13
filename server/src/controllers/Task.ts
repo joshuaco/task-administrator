@@ -71,11 +71,6 @@ class Task {
         return;
       }
 
-      if (task.project.toString() !== req.project.id.toString()) {
-        res.status(403).json({ error: 'Task not found' });
-        return;
-      }
-
       await Promise.allSettled([
         req.project.updateOne({ $pull: { tasks: task._id } }),
         task.deleteOne()
