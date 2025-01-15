@@ -8,7 +8,7 @@ function App() {
         <Navbar />
       </header>
 
-      <section className='max-w-screen-2xl mx-auto py-4 px-6'>
+      <section className='max-w-screen-2xl mx-auto py-4 px-8'>
         <Outlet />
       </section>
 

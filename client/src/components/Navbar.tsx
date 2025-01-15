@@ -38,7 +38,7 @@ function Navbar() {
               </a>
               <button className='flex items-center space-x-2 text-gray-50 hover:text-gray-200'>
                 <CircleUserRound size={20} />
-                <span>User</span>
+                <span>Profile</span>
               </button>
             </div>
 

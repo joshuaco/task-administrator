@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './layouts/App';
-import Home from './pages/Home';
+import CreateProject from '@/pages/projects/CreateProject';
+import App from '@/layouts/App';
+import Home from '@/pages/Home';
 
 function router() {
   return (
@@ -8,6 +9,7 @@ function router() {
       <Routes>
         <Route element={<App />}>
           <Route path='/' element={<Home />} index />
+          <Route path='/projects/create' element={<CreateProject />} />
         </Route>
       </Routes>
     </BrowserRouter>
