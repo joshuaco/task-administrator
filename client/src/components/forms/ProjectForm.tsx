@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { ProjectFormData } from '@/types';
 import ErrorText from './ErrorText';
+import { createProject } from '@/api/project';
 
 function ProjectForm() {
   const {
@@ -10,7 +11,7 @@ function ProjectForm() {
   } = useForm<ProjectFormData>();
 
   const handleFormSubmit = (data: ProjectFormData) => {
-    console.log(data);
+    createProject(data);
   };
 
   return (
