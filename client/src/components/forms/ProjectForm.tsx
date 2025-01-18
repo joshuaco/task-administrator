@@ -1,21 +1,16 @@
 import { useForm } from 'react-hook-form';
+import { ProjectFormData } from '@/types';
 import ErrorText from './ErrorText';
-
-const initialValues = {
-  projectName: '',
-  clientName: '',
-  description: ''
-};
 
 function ProjectForm() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({ defaultValues: initialValues });
+  } = useForm<ProjectFormData>();
 
-  const handleFormSubmit = () => {
-    console.log('Submitted');
+  const handleFormSubmit = (data: ProjectFormData) => {
+    console.log(data);
   };
 
   return (
