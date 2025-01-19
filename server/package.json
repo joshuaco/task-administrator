@@ -15,12 +15,14 @@
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
   "dependencies": {
     "colors": "1.4.0",
+    "cors": "2.8.5",
     "dotenv": "16.4.7",
     "express": "4.21.2",
     "express-validator": "7.2.1",
     "mongoose": "8.9.5"
   },
   "devDependencies": {
+    "@types/cors": "2.8.17",
     "@types/express": "5.0.0",
     "@types/supertest": "6.0.2",
     "nodemon": "3.1.9",
