@@ -21,8 +21,8 @@ importers:
         specifier: 7.2.1
         version: 7.2.1
       mongoose:
-        specifier: 8.9.3
-        version: 8.9.3
+        specifier: 8.9.5
+        version: 8.9.5
     devDependencies:
       '@types/express':
         specifier: 5.0.0
@@ -767,8 +767,8 @@ packages:
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
-  mongodb-connection-string-url@3.0.1:
-    resolution: {integrity: sha512-XqMGwRX0Lgn05TDB4PyG2h2kKO/FfWJyCzYQbIhXUxz7ETt0I/FqHjUeqj37irJ+Dl1ZtU82uYyj14u2XsZKfg==}
+  mongodb-connection-string-url@3.0.2:
+    resolution: {integrity: sha512-rMO7CGo/9BFwyZABcKAWL8UJwH/Kc2x0g72uhDWzG48URRax5TCIcJ7Rc3RZqffZzO/Gwff/jyKwCU9TN8gehA==}
 
   mongodb@6.12.0:
     resolution: {integrity: sha512-RM7AHlvYfS7jv7+BXund/kR64DryVI+cHbVAy9P61fnb1RcWZqOW1/Wj2YhqMCx+MuYhqTRGv7AwHBzmsCKBfA==}
@@ -797,8 +797,8 @@ packages:
       socks:
         optional: true
 
-  mongoose@8.9.3:
-    resolution: {integrity: sha512-G50GNPdMqhoiRAJ/24GYAzg13yxXDD3FOOFeYiFwtHmHpAJem3hxbYIxAhLJGWbYEiUZL0qFMu2LXYkgGAmo+Q==}
+  mongoose@8.9.5:
+    resolution: {integrity: sha512-SPhOrgBm0nKV3b+IIHGqpUTOmgVL5Z3OO9AwkFEmvOZznXTvplbomstCnPOGAyungtRXE5pJTgKpKcZTdjeESg==}
     engines: {node: '>=16.20.1'}
 
   mpath@0.9.0:
@@ -1008,9 +1008,9 @@ packages:
     resolution: {integrity: sha512-r0eojU4bI8MnHr8c5bNo7lJDdI2qXlWWJk6a9EAFG7vbhTjElYhBVS3/miuE0uOuoLdb8Mc/rVfsmm6eo5o9GA==}
     hasBin: true
 
-  tr46@4.1.1:
-    resolution: {integrity: sha512-2lv/66T7e5yNyhAAC4NaKe5nVavzuGJQVVtRYLyQ2OI8tsJ61PMLlelehb0wi2Hx6+hT/OJUWZcw8MjlSRnxvw==}
-    engines: {node: '>=14'}
+  tr46@5.0.0:
+    resolution: {integrity: sha512-tk2G5R2KRwBd+ZN0zaEXpmzdKyOYksXwywulIX95MBODjSzMIuQnQ3m8JxgbhnL1LeVo7lqQKsYa1O3Htl7K5g==}
+    engines: {node: '>=18'}
 
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
@@ -1125,9 +1125,9 @@ packages:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
 
-  whatwg-url@13.0.0:
-    resolution: {integrity: sha512-9WWbymnqj57+XEuqADHrCJ2eSXzn8WXIW/YSGaZtb2WKAInQ6CHfaUUcTyyver0p8BDg5StLQq8h1vtZuwmOig==}
-    engines: {node: '>=16'}
+  whatwg-url@14.1.0:
+    resolution: {integrity: sha512-jlf/foYIKywAt3x/XWKZ/3rz8OSJPiWktjmk891alJUEjiVxKX9LEO92qH3hv4aJ0mN3MWPvGMCy8jQi95xK4w==}
+    engines: {node: '>=18'}
 
   why-is-node-running@2.3.0:
     resolution: {integrity: sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==}
@@ -1787,18 +1787,18 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.11
 
-  mongodb-connection-string-url@3.0.1:
+  mongodb-connection-string-url@3.0.2:
     dependencies:
       '@types/whatwg-url': 11.0.5
-      whatwg-url: 13.0.0
+      whatwg-url: 14.1.0
 
   mongodb@6.12.0:
     dependencies:
       '@mongodb-js/saslprep': 1.1.9
       bson: 6.10.1
-      mongodb-connection-string-url: 3.0.1
+      mongodb-connection-string-url: 3.0.2
 
-  mongoose@8.9.3:
+  mongoose@8.9.5:
     dependencies:
       bson: 6.10.1
       kareem: 2.6.3
@@ -2053,7 +2053,7 @@ snapshots:
 
   touch@3.1.1: {}
 
-  tr46@4.1.1:
+  tr46@5.0.0:
     dependencies:
       punycode: 2.3.1
 
@@ -2160,9 +2160,9 @@ snapshots:
 
   webidl-conversions@7.0.0: {}
 
-  whatwg-url@13.0.0:
+  whatwg-url@14.1.0:
     dependencies:
-      tr46: 4.1.1
+      tr46: 5.0.0
       webidl-conversions: 7.0.0
 
   why-is-node-running@2.3.0:
