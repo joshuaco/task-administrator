@@ -8,7 +8,7 @@ class Task {
       task.project = req.project.id;
       req.project.tasks.push(task.id);
       await Promise.allSettled([task.save(), req.project.save()]);
-      res.status(201).json({ task });
+      res.status(201).json({ task, message: 'Task created successfully' });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -47,7 +47,7 @@ class Task {
         { new: true }
       );
 
-      res.status(200).json({ task });
+      res.status(200).json({ task, message: 'Task updated successfully' });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
