@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
   CheckSquare,
@@ -16,7 +17,9 @@ function Navbar() {
       <div className='mx-auto px-4'>
         <div className='flex justify-between items-center'>
           <div className='w-32'>
-            <Logo />
+            <Link to='/' className='flex items-center'>
+              <Logo />
+            </Link>
           </div>
 
           <div className='flex items-center px-2'>

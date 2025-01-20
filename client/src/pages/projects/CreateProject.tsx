@@ -10,7 +10,7 @@ function CreateProject() {
           <h2 className='text-3xl sm:text-4xl font-semibold'>
             Create a new project
           </h2>
-          <p className='text-lg font-medium text-gray-500'>
+          <p className='hidden sm:block text-lg font-medium text-gray-500'>
             Fill out the form below to create a new project.
           </p>
         </div>
@@ -26,7 +26,7 @@ function CreateProject() {
         </nav>
       </div>
 
-      <div className='mt-4 sm:mt-6 bg-white shadow-lg p-10 rounded-xl'>
+      <div className='mt-4 p-6 sm:p-10 sm:mt-6 bg-white shadow-lg  rounded-xl'>
         <ProjectForm />
       </div>
     </>

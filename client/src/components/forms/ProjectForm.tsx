@@ -1,17 +1,26 @@
 import { useForm } from 'react-hook-form';
-import { ProjectFormData } from '@/types';
-import ErrorText from './ErrorText';
+import { useNavigate } from 'react-router-dom';
 import { createProject } from '@/api/project';
+import { ProjectFormData } from '@/types';
+import { toast } from 'sonner';
+import ErrorText from './ErrorText';
 
 function ProjectForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<ProjectFormData>();
 
-  const handleFormSubmit = (data: ProjectFormData) => {
-    createProject(data);
+  const handleFormSubmit = async (data: ProjectFormData) => {
+    const response = await createProject(data);
+    if (response) {
+      toast.success(response.message);
+      navigate('/');
+    } else {
+      toast.error('Error creating project');
+    }
   };
 
   return (
@@ -30,6 +39,7 @@ function ProjectForm() {
             className='w-full p-3 border border-gray-200 outline-gray-500'
             type='text'
             placeholder='Project Name'
+            disabled={isSubmitting}
             {...register('projectName', {
               required: 'The project name is required'
             })}
@@ -47,6 +57,7 @@ function ProjectForm() {
             id='clientName'
             className='w-full p-3 border border-gray-200 outline-gray-500'
             type='text'
+            disabled={isSubmitting}
             placeholder='Client Name'
             {...register('clientName', {
               required: 'The client name is required'
@@ -64,6 +75,7 @@ function ProjectForm() {
           <textarea
             id='description'
             className='w-full p-3 border border-gray-200 outline-gray-500 resize-none'
+            disabled={isSubmitting}
             placeholder='Project Description'
             {...register('description', {
               required: 'The project description is required'
@@ -74,9 +86,10 @@ function ProjectForm() {
           )}
         </div>
         <input
-          className=' bg-fuchsia-600 hover:bg-fuchsia-700 p-3 font-semibold text-white text-lg rounded-xl transition-colors w-full sm:w-1/2 self-center'
+          className=' bg-fuchsia-600 hover:bg-fuchsia-700 p-3 font-semibold text-white text-lg rounded-xl transition-colors w-full sm:w-1/2 self-center disabled:bg-gray-400 disabled:cursor-not-allowed'
           type='submit'
-          value='Create Project'
+          value={isSubmitting ? 'Creating...' : 'Create Project'}
+          disabled={isSubmitting || Object.keys(errors).length > 0}
         />
       </form>
     </>

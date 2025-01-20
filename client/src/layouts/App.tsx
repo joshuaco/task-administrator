@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner';
 import { Outlet } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 
@@ -17,6 +18,8 @@ function App() {
           &copy; {new Date().getFullYear()} UpTask. All rights reserved.
         </p>
       </footer>
+
+      <Toaster richColors position='top-right' />
     </>
   );
 }
