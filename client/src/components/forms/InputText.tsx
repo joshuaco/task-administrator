@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import ErrorText from './ErrorText';
 
-type InputFieldProps = Omit<
+type InputTextProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'className'
 > & {
@@ -10,9 +10,8 @@ type InputFieldProps = Omit<
   error?: string;
 };
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+const InputText = forwardRef<HTMLInputElement, InputTextProps>(
   ({ label, name, error, ...props }, ref) => {
-    console.log(props);
     return (
       <>
         <label htmlFor={name} className='text-sm uppercase font-bold'>
@@ -30,4 +29,4 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   }
 );
 
-export default InputField;
+export default InputText;
