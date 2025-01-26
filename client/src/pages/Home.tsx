@@ -4,6 +4,7 @@ import { getFullDate } from '@/utils/date';
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Projects from '@/components/dashboard/Projects';
+import ProjectSkeleton from '@/components/dashboard/ProjectSkeleton';
 
 function Home() {
   const { data: projects, isLoading } = useQuery({
@@ -33,13 +34,16 @@ function Home() {
         </nav>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-
-      {!isLoading && projects && (
-        <section className='mt-10'>
-          <Projects projects={projects} />
-        </section>
-      )}
+      <section className='mt-10'>
+        {isLoading && (
+          <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <ProjectSkeleton key={i} />
+            ))}
+          </div>
+        )}
+        {!isLoading && projects && <Projects projects={projects} />}
+      </section>
     </>
   );
 }
