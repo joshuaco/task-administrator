@@ -3,7 +3,7 @@ import { getProjects } from '@/api/project';
 import { getFullDate } from '@/utils/date';
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Projects from '@/components/dashboard/Projects';
+import ProjectCard from '@/components/dashboard/ProjectCard';
 import ProjectSkeleton from '@/components/dashboard/ProjectSkeleton';
 
 function Home() {
@@ -42,7 +42,7 @@ function Home() {
             ))}
           </div>
         )}
-        {!isLoading && projects && <Projects projects={projects} />}
+        {!isLoading && projects && <ProjectCard projects={projects} />}
       </section>
     </>
   );

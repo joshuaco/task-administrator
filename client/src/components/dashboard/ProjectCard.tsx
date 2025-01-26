@@ -7,7 +7,7 @@ interface ProjectsProps {
   projects: Project[];
 }
 
-function Projects({ projects }: ProjectsProps) {
+function ProjectCard({ projects }: ProjectsProps) {
   return (
     <>
       <ul role='list' className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
@@ -50,4 +50,4 @@ function Projects({ projects }: ProjectsProps) {
   );
 }
 
-export default Projects;
+export default ProjectCard;
