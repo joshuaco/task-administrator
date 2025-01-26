@@ -24,7 +24,7 @@ function Projects({ projects }: ProjectsProps) {
                 >
                   {project.projectName}
                 </Link>
-                <ProjectDropdown />
+                <ProjectDropdown projectId={project._id} />
               </div>
               <p className='mt-2 text-gray-500 font-medium'>
                 {project.clientName}

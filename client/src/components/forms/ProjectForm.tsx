@@ -1,18 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { createProject } from '@/api/project';
-import { ProjectFormData } from '@/types';
+import { createProject, updateProject } from '@/api/project';
+import { Project, ProjectFormData } from '@/types';
 import { toast } from 'sonner';
 import ErrorText from './ErrorText';
 
-function ProjectForm() {
+interface ProjectFormProps {
+  project?: Project;
+}
+
+function ProjectForm({ project }: ProjectFormProps) {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<ProjectFormData>();
+  } = useForm<ProjectFormData>({ defaultValues: project });
 
   const { mutateAsync: createProjectMutation } = useMutation({
     mutationFn: createProject,
@@ -25,8 +29,29 @@ function ProjectForm() {
     }
   });
 
+  const { mutateAsync: updateProjectMutation } = useMutation({
+    mutationFn: ({
+      projectId,
+      formData
+    }: {
+      projectId: string;
+      formData: ProjectFormData;
+    }) => updateProject(projectId, formData),
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success('Project updated successfully');
+      navigate('/');
+    }
+  });
+
   const handleFormSubmit = async (data: ProjectFormData) => {
-    await createProjectMutation(data);
+    if (project) {
+      await updateProjectMutation({ projectId: project._id, formData: data });
+    } else {
+      await createProjectMutation(data);
+    }
   };
 
   return (
@@ -94,7 +119,7 @@ function ProjectForm() {
         <input
           className=' bg-fuchsia-600 hover:bg-fuchsia-700 p-3 font-semibold text-white text-lg rounded-xl transition-colors w-full sm:w-1/2 self-center disabled:bg-gray-400 disabled:cursor-not-allowed'
           type='submit'
-          value={isSubmitting ? 'Creating...' : 'Create Project'}
+          value={project ? 'Update Project' : 'Create Project'}
           disabled={isSubmitting || Object.keys(errors).length > 0}
         />
       </form>

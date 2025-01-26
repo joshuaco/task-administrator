@@ -1,3 +1,4 @@
+import { Project } from '@/types';
 import {
   Menu,
   MenuButton,
@@ -9,7 +10,11 @@ import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 
-function ProjectDropdown() {
+interface ProjectDropdownProps {
+  projectId: Project['_id'];
+}
+
+function ProjectDropdown({ projectId }: ProjectDropdownProps) {
   return (
     <div className='flex shrink-0 items-center gap-x-6'>
       <Menu as='div' className='relative flex-none'>
@@ -38,7 +43,7 @@ function ProjectDropdown() {
             </MenuItem>
             <MenuItem>
               <Link
-                to={''}
+                to={`/projects/${projectId}/edit`}
                 className='flex items-center px-3 py-1 text-sm leading-6 text-gray-800'
               >
                 <Pencil className='h-4 w-4 inline mr-2 text-gray-500' />
