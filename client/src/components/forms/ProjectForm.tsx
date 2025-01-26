@@ -16,7 +16,6 @@ function ProjectForm() {
 
   const { mutateAsync: createProjectMutation } = useMutation({
     mutationFn: createProject,
-    onMutate: () => {},
     onError: (error) => {
       toast.error(error.message);
     },

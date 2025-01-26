@@ -9,9 +9,9 @@ function App() {
         <Navbar />
       </header>
 
-      <section className='max-w-screen-2xl mx-auto py-4 px-8'>
+      <main className='max-w-screen-2xl mx-auto py-4 px-8'>
         <Outlet />
-      </section>
+      </main>
 
       <footer className='py-5'>
         <p className='text-center'>

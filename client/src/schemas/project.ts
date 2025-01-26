@@ -6,3 +6,5 @@ export const projectSchema = z.object({
   clientName: z.string().nonempty(),
   description: z.string().nonempty()
 });
+
+export const projectsSchema = z.array(projectSchema);
