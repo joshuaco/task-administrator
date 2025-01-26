@@ -1,6 +1,7 @@
 import { SquareCheckBig, UsersRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Project } from '@/types';
+import ProjectDropdown from './ProjectDropdown';
 
 interface ProjectsProps {
   projects: Project[];
@@ -16,13 +17,14 @@ function Projects({ projects }: ProjectsProps) {
             className='bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300'
           >
             <div className='p-6'>
-              <div className='flex justify-between items-start'>
+              <div className='flex justify-between'>
                 <Link
                   to={''}
                   className='text-xl font-semibold text-gray-900 tracking-tight'
                 >
                   {project.projectName}
                 </Link>
+                <ProjectDropdown />
               </div>
               <p className='mt-2 text-gray-500 font-medium'>
                 {project.clientName}
