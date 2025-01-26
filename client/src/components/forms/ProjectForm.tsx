@@ -40,8 +40,8 @@ function ProjectForm({ project }: ProjectFormProps) {
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: () => {
-      toast.success('Project updated successfully');
+    onSuccess: (data) => {
+      toast.success(data);
       navigate('/');
     }
   });

@@ -50,10 +50,10 @@ export const updateProject = async (
 ) => {
   try {
     const { data } = await api.put(`/projects/${projectId}`, formData);
-    return data;
+    return data.message;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new Error(error.message);
     }
   }
 };
