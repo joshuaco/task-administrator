@@ -7,14 +7,28 @@ import {
   Transition
 } from '@headlessui/react';
 import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteProject } from '@/api/project';
 import { Link } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
+import { toast } from 'sonner';
 
 interface ProjectDropdownProps {
   projectId: Project['_id'];
 }
 
 function ProjectDropdown({ projectId }: ProjectDropdownProps) {
+  const queryClient = useQueryClient();
+  const { mutate: deleteProjectMutation } = useMutation({
+    mutationFn: deleteProject,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      toast.info(data);
+    }
+  });
   return (
     <div className='flex shrink-0 items-center gap-x-6'>
       <Menu as='div' className='relative flex-none'>
@@ -54,7 +68,7 @@ function ProjectDropdown({ projectId }: ProjectDropdownProps) {
               <button
                 type='button'
                 className='flex items-center px-3 py-1 text-sm leading-6 text-red-600'
-                onClick={() => console.log('Delete')}
+                onClick={() => deleteProjectMutation(projectId)}
               >
                 <Trash className='h-4 w-4 inline mr-2 text-red-600' />
                 Delete

@@ -57,3 +57,14 @@ export const updateProject = async (
     }
   }
 };
+
+export const deleteProject = async (projectId: string) => {
+  try {
+    const { data } = await api.delete(`/projects/${projectId}`);
+    return data.message;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.message);
+    }
+  }
+};
