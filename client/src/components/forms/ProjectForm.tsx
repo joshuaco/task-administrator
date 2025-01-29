@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { createProject, updateProject } from '@/api/project';
 import { Project, ProjectFormData } from '@/types';
 import { toast } from 'sonner';
@@ -12,6 +13,7 @@ interface ProjectFormProps {
 
 function ProjectForm({ project }: ProjectFormProps) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -41,6 +43,7 @@ function ProjectForm({ project }: ProjectFormProps) {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['project', project?._id] });
       toast.success(data);
       navigate('/');
     }
