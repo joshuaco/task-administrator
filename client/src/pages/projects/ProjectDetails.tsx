@@ -1,10 +1,12 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Pencil, Plus, Share2 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
+import AddTaskModal from '@/components/tasks/AddTaskModal';
 
 function ProjectDetails() {
   const params = useParams();
+  const navigate = useNavigate();
   const projectId = params.projectId!;
 
   const { data: project, isError } = useQuery({
@@ -71,7 +73,10 @@ function ProjectDetails() {
                   <h2 className='text-lg font-semibold text-gray-900 mb-4'>
                     Tasks
                   </h2>
-                  <button className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none'>
+                  <button
+                    className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none'
+                    onClick={() => navigate('?newTask=true')}
+                  >
                     <Plus className='h-5 w-5 mr-2' />
                     Add Task
                   </button>
@@ -92,6 +97,8 @@ function ProjectDetails() {
             </div>
           </div>
         </section>
+
+        <AddTaskModal />
       </>
     );
 }
