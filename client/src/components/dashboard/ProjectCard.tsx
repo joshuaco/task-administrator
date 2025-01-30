@@ -19,7 +19,7 @@ function ProjectCard({ projects }: ProjectsProps) {
             <div className='p-6'>
               <div className='flex justify-between'>
                 <Link
-                  to={''}
+                  to={`/projects/${project._id}`}
                   className='text-xl font-semibold text-gray-900 tracking-tight'
                 >
                   {project.projectName}
