@@ -22,7 +22,7 @@ export default function AddTaskModal() {
         <Dialog
           as='div'
           className='relative z-10'
-          onClose={() => navigate(location.pathname)}
+          onClose={() => navigate(location.pathname, { replace: true })}
         >
           <TransitionChild
             as={Fragment}
@@ -47,7 +47,7 @@ export default function AddTaskModal() {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-lg transition-all p-4 sm:p-8'>
+                <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-lg transition-all py-4 px-6'>
                   <DialogTitle as='h3' className='font-bold text-2xl mb-2'>
                     New Task
                   </DialogTitle>

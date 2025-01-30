@@ -4,7 +4,7 @@ import { getFullDate } from '@/utils/date';
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProjectCard from '@/components/projects/ProjectCard';
-import ProjectSkeleton from '@/components/projects/ProjectSkeleton';
+import ProjectSkeleton from '@/components/projects/ProjectCardSkeleton';
 
 function Home() {
   const { data: projects, isLoading } = useQuery({
