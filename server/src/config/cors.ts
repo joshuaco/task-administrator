@@ -2,8 +2,9 @@ import { CorsOptions } from 'cors';
 
 const WHITELISTED_ORIGINS = [
   'http://localhost:5173',
-  'https://uptask-projects.vercel.app/',
-  'https://task-administrator-xi.vercel.app'
+  'https://uptask-projects.vercel.app',
+  'https://task-administrator-xi.vercel.app',
+  'https://task-administrator-josuee-contreras-projects.vercel.app'
 ];
 
 export const corsConfig: CorsOptions = {
