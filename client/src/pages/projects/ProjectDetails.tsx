@@ -74,11 +74,11 @@ function ProjectDetails() {
                     Tasks
                   </h2>
                   <button
-                    className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none'
+                    className='inline-flex items-center px-1 sm:px-4 py-1 sm:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none'
                     onClick={() => navigate('?newTask=true')}
                   >
-                    <Plus className='h-5 w-5 mr-2' />
-                    Add Task
+                    <Plus className='h-5 w-5 mr-0 sm:mr-2' />
+                    <p className='hidden sm:block'>Add Task</p>
                   </button>
                 </div>
                 <div className='space-y-4'></div>

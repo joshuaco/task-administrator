@@ -120,7 +120,7 @@ function ProjectForm({ project }: ProjectFormProps) {
           )}
         </div>
         <input
-          className=' bg-fuchsia-600 hover:bg-fuchsia-700 p-3 font-semibold text-white text-lg rounded-xl transition-colors w-full sm:w-1/2 self-center disabled:bg-gray-400 disabled:cursor-not-allowed'
+          className='bg-fuchsia-600 hover:bg-fuchsia-700 p-3 font-semibold text-white text-lg rounded-xl transition-colors w-full sm:w-1/2 self-center disabled:bg-gray-400 disabled:cursor-not-allowed'
           type='submit'
           value={project ? 'Update Project' : 'Create Project'}
           disabled={isSubmitting || Object.keys(errors).length > 0}

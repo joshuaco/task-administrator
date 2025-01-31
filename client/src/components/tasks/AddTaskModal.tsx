@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { XIcon } from 'lucide-react';
 import { Fragment } from 'react';
 import {
   Dialog,
@@ -7,6 +8,7 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import TaskForm from '../forms/TaskForm';
 
 export default function AddTaskModal() {
   const navigate = useNavigate();
@@ -14,16 +16,14 @@ export default function AddTaskModal() {
   const queryParams = new URLSearchParams(location.search);
   const modalOpen = queryParams.get('newTask') === 'true';
 
-  console.log(modalOpen);
+  const closeModal = () => {
+    navigate(location.pathname, { replace: true });
+  };
 
   return (
     <>
       <Transition appear show={modalOpen} as={Fragment}>
-        <Dialog
-          as='div'
-          className='relative z-10'
-          onClose={() => navigate(location.pathname, { replace: true })}
-        >
+        <Dialog as='div' className='relative z-10' onClose={() => closeModal()}>
           <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
@@ -47,10 +47,22 @@ export default function AddTaskModal() {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <DialogPanel className='w-full max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-lg transition-all py-4 px-6'>
-                  <DialogTitle as='h3' className='font-bold text-2xl mb-2'>
-                    New Task
-                  </DialogTitle>
+                <DialogPanel className='w-full max-w-2xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-lg transition-all py-4 px-6'>
+                  <div className='flex justify-between items-center'>
+                    <DialogTitle
+                      as='h3'
+                      className='text-xl font-semibold text-gray-900 mb-2'
+                    >
+                      New Task
+                    </DialogTitle>
+                    <button
+                      className='p-1 sm:p-2 rounded-md hover:bg-gray-100 focus:outline-none'
+                      onClick={() => closeModal()}
+                    >
+                      <XIcon className='h-6 w-6 text-gray-500' />
+                    </button>
+                  </div>
+                  <TaskForm onClose={closeModal} />
                 </DialogPanel>
               </TransitionChild>
             </div>
