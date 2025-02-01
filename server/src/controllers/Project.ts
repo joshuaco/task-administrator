@@ -32,7 +32,7 @@ class Project {
     try {
       const project = await ProjectModel.findById(req.params.id).populate(
         'tasks',
-        { name: 1, description: 1, status: 1 }
+        { name: 1, description: 1, status: 1, project: 1 }
       );
 
       if (!project) {
