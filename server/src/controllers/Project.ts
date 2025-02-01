@@ -19,6 +19,7 @@ class Project {
       const projects = await ProjectModel.find({}).populate('tasks', {
         name: 1,
         description: 1,
+        project: 1,
         status: 1
       });
       res.status(200).json({ projects });
