@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import { ChevronLeft } from 'lucide-react';
@@ -6,6 +6,7 @@ import ProjectForm from '@/components/forms/ProjectForm';
 
 function EditProject() {
   const params = useParams();
+  const navigate = useNavigate();
   const projectId = params.projectId!;
 
   const { data: project, isError } = useQuery({
@@ -28,13 +29,13 @@ function EditProject() {
         </div>
 
         <nav className='hidden sm:block'>
-          <Link
-            to='/'
+          <button
+            onClick={() => navigate(-1)}
             className='flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white text-lg font-medium py-2 px-4 rounded-xl transition-colors mt-6 sm:mt-0'
           >
             <ChevronLeft className='inline' />
             <p className='ml-2'>Go Back</p>
-          </Link>
+          </button>
         </nav>
       </div>
 
