@@ -81,7 +81,7 @@ function ProjectDetails() {
                     <p className='hidden sm:block'>Add Task</p>
                   </button>
                 </div>
-                <div className='space-y-4'></div>
+                <div className='space-y-4'>{/* TODO: Add tasks here */}</div>
               </div>
             </div>
 
