@@ -1,5 +1,5 @@
 import { Task } from '@/types';
-import { getStatusTitle } from '@/utils/regex';
+import { statusTitle } from '@/utils/status';
 import {
   CheckCircle2,
   CircleDashed,
@@ -77,7 +77,7 @@ function TaskGroup({ tasks }: TaskGroupProps) {
                 <div className='flex items-center space-x-2'>
                   <span className={`p-2 rounded-lg ${color}`}>{icon}</span>
                   <h2 className='text-lg font-semibold text-gray-900'>
-                    {getStatusTitle(status)}
+                    {statusTitle(status)}
                   </h2>
                 </div>
               </div>
@@ -86,7 +86,7 @@ function TaskGroup({ tasks }: TaskGroupProps) {
                 {tasks.length === 0 ? (
                   <li className='border-2 border-dashed border-gray-200 rounded-lg p-4'>
                     <p className='text-sm text-gray-500 text-center'>
-                      No tasks {getStatusTitle(status).toLowerCase()}
+                      No tasks {statusTitle(status).toLowerCase()}
                     </p>
                   </li>
                 ) : (

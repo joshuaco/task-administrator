@@ -1,5 +1,9 @@
 import { Task } from '@/types';
-import { getStatusTitle } from '@/utils/regex';
+import {
+  statusTitle,
+  statusPillColors,
+  statusBorderColors
+} from '@/utils/status';
 import TaskDropdown from './TaskDropdown';
 
 interface TaskListProps {
@@ -7,31 +11,25 @@ interface TaskListProps {
 }
 
 function TaskList({ tasks }: TaskListProps) {
-  const statusColors = {
-    pending: 'bg-gray-100 text-gray-800',
-    completed: 'bg-green-100 text-green-800',
-    'in-progress': 'bg-blue-100 text-blue-800',
-    'on-hold': 'bg-red-100 text-red-800',
-    'under-review': 'bg-yellow-100 text-yellow-800'
-  } as const;
-
   return (
     <div className='space-y-4'>
       {tasks.map((task) => (
         <div
           key={task._id}
-          className='flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg gap-3 hover:bg-gray-100 transition-colors'
+          className={`flex sm:items-center justify-between p-4 bg-gray-50 rounded-lg gap-3 hover:bg-gray-100 transition-colors border-t-4 ${
+            statusBorderColors[task.status]
+          } sm:border-t-0`}
         >
           <div>
             <h3 className='font-medium text-gray-900'>{task.name}</h3>
           </div>
           <div className='flex items-center gap-x-2'>
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium w-fit ${
-                statusColors[task.status]
+              className={`hidden sm:block px-3 py-1 rounded-full text-sm font-medium w-fit ${
+                statusPillColors[task.status]
               }`}
             >
-              {getStatusTitle(task.status)}
+              {statusTitle(task.status)}
             </span>
             <TaskDropdown />
           </div>
