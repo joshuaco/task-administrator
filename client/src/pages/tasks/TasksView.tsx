@@ -2,6 +2,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
+import TaskGroup from '@/components/tasks/TaskGroup';
 
 function TasksView() {
   const params = useParams();
@@ -10,8 +11,7 @@ function TasksView() {
   const { data: project, isError } = useQuery({
     queryKey: ['project', projectId],
     queryFn: () => getProjectById(projectId),
-    refetchOnWindowFocus: false,
-    retry: false
+    refetchOnWindowFocus: false
   });
 
   if (isError) return <Navigate to='/404' />;
@@ -21,6 +21,7 @@ function TasksView() {
       <>
         <section className='mt-5 space-y-6'>
           <ProjectHeader project={project} text='Back to Project' />
+          <TaskGroup tasks={project.tasks} />
         </section>
       </>
     );

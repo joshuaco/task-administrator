@@ -1,4 +1,6 @@
 import { Task } from '@/types';
+import { getStatusTitle } from '@/utils/regex';
+import TaskDropdown from './TaskDropdown';
 
 interface TaskListProps {
   tasks: Task[];
@@ -23,13 +25,16 @@ function TaskList({ tasks }: TaskListProps) {
           <div>
             <h3 className='font-medium text-gray-900'>{task.name}</h3>
           </div>
-          <span
-            className={`px-3 py-1 rounded-full text-sm font-medium w-fit ${
-              statusColors[task.status]
-            }`}
-          >
-            {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
-          </span>
+          <div className='flex items-center gap-x-2'>
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium w-fit ${
+                statusColors[task.status]
+              }`}
+            >
+              {getStatusTitle(task.status)}
+            </span>
+            <TaskDropdown />
+          </div>
         </div>
       ))}
     </div>

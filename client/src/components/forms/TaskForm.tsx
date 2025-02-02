@@ -1,9 +1,9 @@
-import { toast } from 'sonner';
-import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
 import { createTask } from '@/api/task';
 import { TaskFormData } from '@/types';
+import { toast } from 'sonner';
 import ErrorText from './ErrorText';
 
 interface TaskFormProps {
@@ -19,12 +19,14 @@ function TaskForm({ onClose }: TaskFormProps) {
     formState: { errors, isSubmitting }
   } = useForm<TaskFormData>();
 
+  const queryClient = useQueryClient();
   const { mutateAsync: createTaskMutation } = useMutation({
     mutationFn: createTask,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['project', projectId] });
       toast.success(data);
       onClose();
     }
