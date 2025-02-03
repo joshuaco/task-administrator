@@ -1,8 +1,8 @@
 import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { useGetTask } from '@/hooks/task/useGetTask';
 import { useQuery } from '@tanstack/react-query';
-import { Plus } from 'lucide-react';
 import { getProjectById } from '@/api/project';
-import { useGetTask } from '@/hooks/useGetTask';
+import { Plus } from 'lucide-react';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import AddTaskModal from '@/components/tasks/AddTaskModal';
 import TaskList from '@/components/tasks/TaskList';

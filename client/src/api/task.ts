@@ -42,3 +42,23 @@ export const getTaskById = async ({
     }
   }
 };
+
+export const updateTask = async ({
+  formData,
+  projectId,
+  taskId
+}: Pick<TaskParams, 'formData' | 'projectId' | 'taskId'>) => {
+  try {
+    const url = `/projects/${projectId}/tasks/${taskId}`;
+    const { data } = await api.put(url, formData);
+    const response = taskResponseSchema.safeParse(data);
+    if (!response.success) {
+      throw new Error(response.error.message);
+    }
+    return response.data.message;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+};

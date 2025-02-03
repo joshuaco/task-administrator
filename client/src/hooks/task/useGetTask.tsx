@@ -16,5 +16,5 @@ export const useGetTask = () => {
     enabled: !!taskId
   });
 
-  return { taskId, taskData };
+  return { taskId, projectId, taskData };
 };

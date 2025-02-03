@@ -1,9 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useCreateTask } from '@/hooks/task/useCreateTask';
+import { useEditTask } from '@/hooks/task/useEditTask';
+import { useGetTask } from '@/hooks/task/useGetTask';
 import { useForm } from 'react-hook-form';
-import { createTask } from '@/api/task';
 import { Task, TaskFormData } from '@/types';
-import { toast } from 'sonner';
 import ErrorText from './ErrorText';
 
 interface TaskFormProps {
@@ -12,30 +11,23 @@ interface TaskFormProps {
 }
 
 function TaskForm({ onClose, task }: TaskFormProps) {
-  const params = useParams();
-  const projectId = params.projectId!;
+  const { taskId, projectId } = useGetTask();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<TaskFormData>({ defaultValues: task });
 
-  const queryClient = useQueryClient();
-  const { mutateAsync: createTaskMutation } = useMutation({
-    mutationFn: createTask,
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-      toast.success(data);
-      onClose();
-    }
-  });
+  const { createTaskMutation } = useCreateTask();
+  const { editTaskMutation } = useEditTask();
 
   const onSubmit = async (data: TaskFormData) => {
-    const taskData = { formData: data, projectId };
-    await createTaskMutation(taskData);
+    if (task) {
+      await editTaskMutation({ formData: data, projectId, taskId });
+    } else {
+      const taskData = { formData: data, projectId };
+      await createTaskMutation(taskData);
+    }
   };
 
   return (
