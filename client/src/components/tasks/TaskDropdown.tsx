@@ -6,9 +6,20 @@ import {
   Transition
 } from '@headlessui/react';
 import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 
-function TaskDropdown() {
+interface TaskDropdownProps {
+  taskId: string;
+}
+
+function TaskDropdown({ taskId }: TaskDropdownProps) {
+  const navigate = useNavigate();
+
+  const handleEditTask = () => {
+    navigate(`${location.pathname}?editTask=${taskId}`);
+  };
+
   return (
     <div className='flex shrink-0 gap-x-6'>
       <Menu as='div' className='relative flex-none'>
@@ -39,6 +50,7 @@ function TaskDropdown() {
               <button
                 type='button'
                 className='px-3 py-1 text-sm leading-6 text-gray-600 flex items-center gap-x-2'
+                onClick={handleEditTask}
               >
                 <Pencil className='h-4 w-4 inline' />
                 Edit Task

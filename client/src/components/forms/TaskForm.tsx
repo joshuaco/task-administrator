@@ -2,22 +2,23 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { createTask } from '@/api/task';
-import { TaskFormData } from '@/types';
+import { Task, TaskFormData } from '@/types';
 import { toast } from 'sonner';
 import ErrorText from './ErrorText';
 
 interface TaskFormProps {
   onClose: () => void;
+  task?: Task;
 }
 
-function TaskForm({ onClose }: TaskFormProps) {
+function TaskForm({ onClose, task }: TaskFormProps) {
   const params = useParams();
   const projectId = params.projectId!;
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<TaskFormData>();
+  } = useForm<TaskFormData>({ defaultValues: task });
 
   const queryClient = useQueryClient();
   const { mutateAsync: createTaskMutation } = useMutation({

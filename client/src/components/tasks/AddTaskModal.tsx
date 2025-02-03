@@ -8,13 +8,18 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import { Task } from '@/types';
 import TaskForm from '../forms/TaskForm';
 
-export default function AddTaskModal() {
+interface AddTaskModalProps {
+  task?: Task;
+}
+
+export default function AddTaskModal({ task }: AddTaskModalProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const modalOpen = queryParams.get('newTask') === 'true';
+  const modalOpen = queryParams.get('newTask') === 'true' || !!task;
 
   const closeModal = () => {
     navigate(location.pathname, { replace: true });
@@ -53,7 +58,7 @@ export default function AddTaskModal() {
                       as='h3'
                       className='text-xl font-semibold text-gray-900 mb-2'
                     >
-                      New Task
+                      {task ? 'Edit Task' : 'New Task'}
                     </DialogTitle>
                     <button
                       className='p-1 sm:p-2 rounded-md hover:bg-gray-100 focus:outline-none'
@@ -62,7 +67,7 @@ export default function AddTaskModal() {
                       <XIcon className='h-6 w-6 text-gray-500' />
                     </button>
                   </div>
-                  <TaskForm onClose={closeModal} />
+                  <TaskForm onClose={closeModal} task={task} />
                 </DialogPanel>
               </TransitionChild>
             </div>

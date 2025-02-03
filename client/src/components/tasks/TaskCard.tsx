@@ -23,7 +23,7 @@ function TaskCard({ task }: TaskCardProps) {
           <p className='text-sm text-slate-500'>{task.description}</p>
         )}
       </div>
-      <TaskDropdown />
+      <TaskDropdown taskId={task._id} />
     </li>
   );
 }

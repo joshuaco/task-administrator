@@ -11,9 +11,20 @@ interface TaskListProps {
 }
 
 function TaskList({ tasks }: TaskListProps) {
+  const sortedTasks = tasks.sort((a, b) => {
+    const statusOrder = {
+      pending: 0,
+      'on-hold': 1,
+      'in-progress': 2,
+      'under-review': 3,
+      completed: 4
+    };
+    return statusOrder[a.status] - statusOrder[b.status];
+  });
+
   return (
     <div className='space-y-4'>
-      {tasks.map((task) => (
+      {sortedTasks.map((task) => (
         <div
           key={task._id}
           className={`flex sm:items-center justify-between p-4 bg-gray-50 rounded-lg gap-3 hover:bg-gray-100 transition-colors border-t-4 ${
@@ -31,7 +42,7 @@ function TaskList({ tasks }: TaskListProps) {
             >
               {statusTitle(task.status)}
             </span>
-            <TaskDropdown />
+            <TaskDropdown taskId={task._id} />
           </div>
         </div>
       ))}

@@ -1,7 +1,8 @@
 import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getProjectById } from '@/api/project';
 import { Plus } from 'lucide-react';
+import { getProjectById } from '@/api/project';
+import { useGetTask } from '@/hooks/useGetTask';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import AddTaskModal from '@/components/tasks/AddTaskModal';
 import TaskList from '@/components/tasks/TaskList';
@@ -14,9 +15,10 @@ function ProjectDetails() {
   const { data: project, isError } = useQuery({
     queryKey: ['project', projectId],
     queryFn: () => getProjectById(projectId),
-    refetchOnWindowFocus: false,
-    retry: false
+    refetchOnWindowFocus: false
   });
+
+  const { taskData } = useGetTask();
 
   if (isError) return <Navigate to='/404' />;
 
@@ -39,10 +41,11 @@ function ProjectDetails() {
                 <div className='flex justify-between items-start mb-2'>
                   <Link
                     to={`/projects/${project._id}/tasks`}
-                    className='text-lg font-semibold text-gray-900 mb-4 cursor-pointer'
+                    className='text-xl font-semibold text-gray-900 mb-4 cursor-pointer'
                   >
-                    Tasks
+                    Tasks ({project.tasks.length})
                   </Link>
+
                   <button
                     className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none'
                     onClick={() => navigate('?newTask=true')}
@@ -70,7 +73,7 @@ function ProjectDetails() {
           </div>
         </section>
 
-        <AddTaskModal />
+        <AddTaskModal task={taskData} />
       </>
     );
 }
