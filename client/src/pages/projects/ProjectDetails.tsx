@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import { Plus } from 'lucide-react';
 import ProjectHeader from '@/components/projects/ProjectHeader';
-import AddTaskModal from '@/components/tasks/AddTaskModal';
+import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskList from '@/components/tasks/TaskList';
 
 function ProjectDetails() {
@@ -73,7 +73,7 @@ function ProjectDetails() {
           </div>
         </section>
 
-        <AddTaskModal task={taskData} />
+        <TaskFormModal task={taskData} />
       </>
     );
 }

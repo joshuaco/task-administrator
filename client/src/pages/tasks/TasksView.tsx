@@ -3,8 +3,8 @@ import { useGetTask } from '@/hooks/task/useGetTask';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
+import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskGroup from '@/components/tasks/TaskGroup';
-import AddTaskModal from '@/components/tasks/AddTaskModal';
 
 function TasksView() {
   const params = useParams();
@@ -28,7 +28,7 @@ function TasksView() {
           <TaskGroup tasks={project.tasks} />
         </section>
 
-        <AddTaskModal task={taskData} />
+        <TaskFormModal task={taskData} />
       </>
     );
 }

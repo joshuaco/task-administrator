@@ -11,11 +11,11 @@ import {
 import { Task } from '@/types';
 import TaskForm from '../forms/TaskForm';
 
-interface AddTaskModalProps {
+interface TaskFormModalProps {
   task?: Task;
 }
 
-export default function AddTaskModal({ task }: AddTaskModalProps) {
+export default function TaskFormModal({ task }: TaskFormModalProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
