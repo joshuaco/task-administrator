@@ -1,3 +1,8 @@
+import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
+import { useDeleteTask } from '@/hooks/task/useDeleteTask';
+import { useGetTask } from '@/hooks/task/useGetTask';
+import { useNavigate } from 'react-router-dom';
+import { Fragment } from 'react/jsx-runtime';
 import {
   Menu,
   MenuButton,
@@ -5,9 +10,6 @@ import {
   MenuItems,
   Transition
 } from '@headlessui/react';
-import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Fragment } from 'react/jsx-runtime';
 
 interface TaskDropdownProps {
   taskId: string;
@@ -15,9 +17,15 @@ interface TaskDropdownProps {
 
 function TaskDropdown({ taskId }: TaskDropdownProps) {
   const navigate = useNavigate();
+  const { projectId } = useGetTask();
+  const { deleteTaskMutation } = useDeleteTask();
 
   const handleEditTask = () => {
     navigate(`${location.pathname}?editTask=${taskId}`);
+  };
+
+  const handleDeleteTask = async () => {
+    await deleteTaskMutation({ projectId, taskId });
   };
 
   return (
@@ -61,6 +69,7 @@ function TaskDropdown({ taskId }: TaskDropdownProps) {
               <button
                 type='button'
                 className='px-3 py-1 text-sm leading-6 text-red-500 flex items-center gap-x-2'
+                onClick={handleDeleteTask}
               >
                 <Trash className='h-4 w-4 inline' />
                 Delete Task

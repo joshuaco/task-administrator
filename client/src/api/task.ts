@@ -62,3 +62,18 @@ export const updateTask = async ({
     }
   }
 };
+
+export const deleteTask = async ({
+  projectId,
+  taskId
+}: Pick<TaskParams, 'projectId' | 'taskId'>) => {
+  try {
+    const url = `/projects/${projectId}/tasks/${taskId}`;
+    const { data } = await api.delete(url);
+    return data.message;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+};
