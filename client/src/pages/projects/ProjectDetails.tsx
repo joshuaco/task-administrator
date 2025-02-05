@@ -1,23 +1,14 @@
-import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useGetProject } from '@/hooks/projects/useGetProject';
 import { useGetTask } from '@/hooks/task/useGetTask';
-import { useQuery } from '@tanstack/react-query';
-import { getProjectById } from '@/api/project';
 import { Plus } from 'lucide-react';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskList from '@/components/tasks/TaskList';
 
 function ProjectDetails() {
-  const params = useParams();
   const navigate = useNavigate();
-  const projectId = params.projectId!;
-
-  const { data: project, isError } = useQuery({
-    queryKey: ['project', projectId],
-    queryFn: () => getProjectById(projectId),
-    refetchOnWindowFocus: false
-  });
-
+  const { project, isError } = useGetProject();
   const { taskData } = useGetTask();
 
   if (isError) return <Navigate to='/404' />;

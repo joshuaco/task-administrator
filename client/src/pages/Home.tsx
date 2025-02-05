@@ -1,16 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { getProjects } from '@/api/project';
-import { getFullDate } from '@/utils/date';
-import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Plus } from 'lucide-react';
+import { getFullDate } from '@/utils/date';
+import { useGetProjects } from '@/hooks/projects/useGetProjects';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectSkeleton from '@/components/projects/ProjectCardSkeleton';
 
 function Home() {
-  const { data: projects, isLoading } = useQuery({
-    queryKey: ['projects'],
-    queryFn: getProjects
-  });
+  const { projects, isLoading } = useGetProjects();
 
   return (
     <>

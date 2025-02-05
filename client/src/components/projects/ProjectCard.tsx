@@ -38,7 +38,7 @@ function ProjectCard({ projects }: ProjectsProps) {
                   </div>
                   <div className='flex items-center text-gray-500'>
                     <SquareCheckBig className='h-5 w-5 mr-1' />
-                    <span>0</span>
+                    <span>{project.tasks.length}</span>
                   </div>
                 </div>
               </div>

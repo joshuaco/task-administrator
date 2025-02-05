@@ -1,10 +1,6 @@
+import { useProjectMutation } from '@/hooks/projects/useProjectMutation';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
-import { createProject, updateProject } from '@/api/project';
 import { Project, ProjectFormData } from '@/types';
-import { toast } from 'sonner';
 import ErrorText from './ErrorText';
 
 interface ProjectFormProps {
@@ -12,41 +8,14 @@ interface ProjectFormProps {
 }
 
 function ProjectForm({ project }: ProjectFormProps) {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<ProjectFormData>({ defaultValues: project });
 
-  const { mutateAsync: createProjectMutation } = useMutation({
-    mutationFn: createProject,
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: (data) => {
-      toast.success(data.message);
-      navigate('/');
-    }
-  });
-
-  const { mutateAsync: updateProjectMutation } = useMutation({
-    mutationFn: ({
-      projectId,
-      formData
-    }: {
-      projectId: string;
-      formData: ProjectFormData;
-    }) => updateProject(projectId, formData),
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['project', project?._id] });
-      toast.success(data);
-      navigate('/');
-    }
+  const { createProjectMutation, updateProjectMutation } = useProjectMutation({
+    projectId: project?._id
   });
 
   const handleFormSubmit = async (data: ProjectFormData) => {
