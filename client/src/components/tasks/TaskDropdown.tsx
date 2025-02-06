@@ -1,4 +1,4 @@
-import { EllipsisVertical, Eye, Pencil, Trash } from 'lucide-react';
+import { EllipsisVertical, Eye, Pencil, Trash2 } from 'lucide-react';
 import { useDeleteTask } from '@/hooks/task/useDeleteTask';
 import { useGetTask } from '@/hooks/task/useGetTask';
 import { useNavigate } from 'react-router-dom';
@@ -31,8 +31,11 @@ function TaskDropdown({ taskId }: TaskDropdownProps) {
   return (
     <div className='flex shrink-0 gap-x-6'>
       <Menu as='div' className='relative flex-none'>
-        <MenuButton className='-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900'>
-          <span className='sr-only'>opciones</span>
+        <MenuButton
+          className='-m-2.5 block p-2 text-gray-500 
+        hover:text-gray-900 rounded-full hover:bg-gray-200 transition-colors'
+        >
+          <span className='sr-only'>options</span>
           <EllipsisVertical className='h-5 w-5' aria-hidden='true' />
         </MenuButton>
         <Transition
@@ -44,34 +47,33 @@ function TaskDropdown({ taskId }: TaskDropdownProps) {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <MenuItems className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none'>
+          <MenuItems className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
             <MenuItem>
               <button
                 type='button'
-                className='px-3 py-1 text-sm leading-6 text-gray-600 flex items-center gap-x-2'
+                className={`group flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100`}
               >
-                <Eye className='h-4 w-4 inline' />
-                See Task
+                <Eye className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
+                Show Task
               </button>
             </MenuItem>
             <MenuItem>
               <button
                 type='button'
-                className='px-3 py-1 text-sm leading-6 text-gray-600 flex items-center gap-x-2'
+                className={`group flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100`}
                 onClick={handleEditTask}
               >
-                <Pencil className='h-4 w-4 inline' />
+                <Pencil className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
                 Edit Task
               </button>
             </MenuItem>
-
             <MenuItem>
               <button
                 type='button'
-                className='px-3 py-1 text-sm leading-6 text-red-500 flex items-center gap-x-2'
+                className={`group flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100`}
                 onClick={handleDeleteTask}
               >
-                <Trash className='h-4 w-4 inline' />
+                <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
                 Delete Task
               </button>
             </MenuItem>

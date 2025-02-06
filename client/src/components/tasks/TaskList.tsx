@@ -36,7 +36,7 @@ function TaskList({ tasks }: TaskListProps) {
           </div>
           <div className='flex items-center gap-x-2'>
             <span
-              className={`hidden sm:block px-3 py-1 rounded-full text-sm font-medium w-fit ${
+              className={`hidden sm:block px-3 py-1 rounded-full text-sm font-medium w-fit sm:mr-2 ${
                 statusPillColors[task.status]
               }`}
             >
