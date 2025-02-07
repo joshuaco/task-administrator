@@ -21,6 +21,10 @@ function TaskDropdown({ task }: TaskDropdownProps) {
   const { projectId } = useGetTask();
   const { deleteTaskMutation } = useDeleteTask();
 
+  const handleViewTask = () => {
+    navigate(`${location.pathname}?viewTask=${task._id}`);
+  };
+
   const handleEditTask = () => {
     navigate(`${location.pathname}?editTask=${task._id}`);
   };
@@ -54,9 +58,10 @@ function TaskDropdown({ task }: TaskDropdownProps) {
                 <button
                   type='button'
                   className={`group flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100`}
+                  onClick={handleViewTask}
                 >
                   <Eye className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
-                  Show Task
+                  View Task
                 </button>
               </MenuItem>
               <MenuItem>

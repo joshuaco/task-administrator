@@ -19,7 +19,9 @@ export default function TaskFormModal({ task }: TaskFormModalProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const modalOpen = queryParams.get('newTask') === 'true' || !!task;
+  const modalOpen =
+    queryParams.get('newTask') === 'true' ||
+    queryParams.get('editTask') === task?._id;
 
   const closeModal = () => {
     navigate(location.pathname, { replace: true });

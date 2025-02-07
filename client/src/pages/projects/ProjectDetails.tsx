@@ -5,6 +5,7 @@ import { Plus } from 'lucide-react';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskList from '@/components/tasks/TaskList';
+import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 
 function ProjectDetails() {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ function ProjectDetails() {
         </section>
 
         <TaskFormModal task={taskData} />
+        <TaskModalDetails />
       </>
     );
 }

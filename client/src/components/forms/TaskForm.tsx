@@ -11,7 +11,7 @@ interface TaskFormProps {
 }
 
 function TaskForm({ onClose, task }: TaskFormProps) {
-  const { taskId, projectId } = useGetTask();
+  const { editTaskId, projectId } = useGetTask();
   const {
     register,
     handleSubmit,
@@ -23,7 +23,7 @@ function TaskForm({ onClose, task }: TaskFormProps) {
 
   const onSubmit = async (data: TaskFormData) => {
     if (task) {
-      await editTaskMutation({ formData: data, projectId, taskId });
+      await editTaskMutation({ formData: data, projectId, taskId: editTaskId });
     } else {
       const taskData = { formData: data, projectId };
       await createTaskMutation(taskData);

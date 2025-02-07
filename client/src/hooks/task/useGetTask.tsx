@@ -6,15 +6,22 @@ export const useGetTask = () => {
   const params = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const taskId = queryParams.get('editTask')!;
+  const editTaskId = queryParams.get('editTask')!;
+  const viewTaskId = queryParams.get('viewTask')!;
+  const taskId = editTaskId || viewTaskId;
   const projectId = params.projectId!;
 
-  const { data: taskData } = useQuery({
+  const {
+    data: taskData,
+    isError,
+    error
+  } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => getTaskById({ projectId, taskId }),
     refetchOnWindowFocus: false,
+    retry: false,
     enabled: !!taskId
   });
 
-  return { taskId, projectId, taskData };
+  return { viewTaskId, editTaskId, projectId, taskData, isError, error };
 };

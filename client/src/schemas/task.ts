@@ -8,6 +8,22 @@ export const taskStatusSchema = z.enum([
   'under-review'
 ]);
 
+const projectTaskSchema = z.object({
+  _id: z.string(),
+  projectName: z.string().nonempty(),
+  clientName: z.string().nonempty()
+});
+
+export const taskProjectSchema = z.object({
+  _id: z.string(),
+  name: z.string().nonempty(),
+  description: z.string().nonempty(),
+  project: projectTaskSchema,
+  status: taskStatusSchema,
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+
 export const taskSchema = z.object({
   _id: z.string(),
   name: z.string().nonempty(),

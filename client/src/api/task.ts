@@ -1,7 +1,7 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
 import { Project, Task, TaskFormData } from '@/types';
-import { taskResponseSchema } from '@/schemas/task';
+import { taskProjectSchema, taskResponseSchema } from '@/schemas/task';
 
 interface TaskParams {
   formData: TaskFormData;
@@ -35,7 +35,11 @@ export const getTaskById = async ({
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
     const { data } = await api(url);
-    return data.task;
+    const response = taskProjectSchema.safeParse(data.task);
+    if (!response.success) {
+      throw new Error(response.error.message);
+    }
+    return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.error);
