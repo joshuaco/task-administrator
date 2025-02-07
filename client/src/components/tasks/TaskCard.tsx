@@ -24,7 +24,7 @@ function TaskCard({ task }: TaskCardProps) {
         )}
       </div>
       <div className='mt-1'>
-        <TaskDropdown taskId={task._id} />
+        <TaskDropdown task={task} />
       </div>
     </li>
   );

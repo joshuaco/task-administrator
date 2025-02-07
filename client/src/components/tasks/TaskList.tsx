@@ -42,7 +42,7 @@ function TaskList({ tasks }: TaskListProps) {
             >
               {statusTitle(task.status)}
             </span>
-            <TaskDropdown taskId={task._id} />
+            <TaskDropdown task={task} />
           </div>
         </div>
       ))}
