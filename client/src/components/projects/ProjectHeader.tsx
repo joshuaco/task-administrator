@@ -9,11 +9,15 @@ interface ProjectHeaderProps {
 
 function ProjectHeader({ project, text }: ProjectHeaderProps) {
   const navigate = useNavigate();
+  const goBack = () => {
+    if (text === 'Back to Project') navigate(`/projects/${project._id}`);
+    else navigate(`/`);
+  };
   return (
     <header className='bg-white shadow-sm rounded-xl'>
       <div className='p-6'>
         <button
-          onClick={() => navigate(-1)}
+          onClick={goBack}
           className='inline-flex items-center text-gray-600 hover:text-gray-900 mb-4'
         >
           <ArrowLeft className='h-4 w-4 inline mr-2' />
