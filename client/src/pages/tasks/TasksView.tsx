@@ -3,6 +3,7 @@ import { useGetTask } from '@/hooks/task/useGetTask';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
+import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskGroup from '@/components/tasks/TaskGroup';
 
@@ -29,6 +30,7 @@ function TasksView() {
         </section>
 
         <TaskFormModal task={taskData} />
+        <TaskModalDetails />
       </>
     );
 }
