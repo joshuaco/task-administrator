@@ -5,7 +5,7 @@ import { updateTask } from '@/api/task';
 import { toast } from 'sonner';
 
 export const useEditTask = () => {
-  const { projectId, taskId } = useGetTask();
+  const { projectId, editTaskId } = useGetTask();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export const useEditTask = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-      queryClient.invalidateQueries({ queryKey: ['task', taskId] });
+      queryClient.invalidateQueries({ queryKey: ['task', editTaskId] });
       navigate(location.pathname, { replace: true });
       toast.success(data);
     }
