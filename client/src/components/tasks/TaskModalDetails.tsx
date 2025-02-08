@@ -1,13 +1,15 @@
 import { Bookmark, Calendar, Clock, User, X } from 'lucide-react';
 import { useGetTask } from '@/hooks/task/useGetTask';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { statusTitle } from '@/utils/status';
+import { statusTitle, taskStatus } from '@/utils/status';
+import { formatDate } from '@/utils/date';
 import { Fragment } from 'react';
 import { toast } from 'sonner';
 import {
   Dialog,
   DialogPanel,
   DialogTitle,
+  Select,
   Transition,
   TransitionChild
 } from '@headlessui/react';
@@ -96,7 +98,21 @@ export default function TaskModalDetails() {
                         </div>
                         <div className='flex items-center text-gray-600'>
                           <Bookmark className='h-5 w-5 mr-2' />
-                          <span>Status: {statusTitle(taskData.status)}</span>
+                          <label>Status: </label>
+                          <Select
+                            name='status'
+                            defaultValue={taskStatus[taskData.status]}
+                            aria-label='task-status'
+                            className={
+                              'ml-2 border data-[hover]:shadow data-[focus]:bg-blue-100 p-0.5'
+                            }
+                          >
+                            {Object.keys(taskStatus).map((status) => (
+                              <option key={status} value={status}>
+                                {statusTitle(status)}
+                              </option>
+                            ))}
+                          </Select>
                         </div>
                         <div className='flex items-center text-gray-600'>
                           <Calendar className='h-5 w-5 mr-2' />
@@ -113,13 +129,13 @@ export default function TaskModalDetails() {
                         <div className='flex items-center text-gray-600'>
                           <Clock className='h-5 w-5 mr-2' />
                           <span>
-                            Created: {new Date().toLocaleDateString()}
+                            Created: {formatDate(taskData.createdAt!)}
                           </span>
                         </div>
                         <div className='flex items-center text-gray-600'>
                           <Clock className='h-5 w-5 mr-2' />
                           <span>
-                            Updated: {new Date().toLocaleDateString()}
+                            Updated: {formatDate(taskData.updatedAt!)}
                           </span>
                         </div>
                       </div>
@@ -129,7 +145,8 @@ export default function TaskModalDetails() {
                     <button
                       type='button'
                       onClick={handleClose}
-                      className='mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                      className='mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
+                      hover:bg-gray-50 sm:mt-0 sm:w-auto'
                     >
                       Close
                     </button>

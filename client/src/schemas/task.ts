@@ -29,7 +29,9 @@ export const taskSchema = z.object({
   name: z.string().nonempty(),
   description: z.string().nonempty(),
   project: z.string().nonempty().or(projectTaskSchema),
-  status: taskStatusSchema
+  status: taskStatusSchema,
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional()
 });
 
 export const taskResponseSchema = z.object({

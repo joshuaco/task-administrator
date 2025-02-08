@@ -10,3 +10,11 @@ const options: Intl.DateTimeFormatOptions = {
 export function getFullDate() {
   return date.toLocaleString('en-US', options);
 }
+
+export function formatDate(isoString: string) {
+  return new Date(isoString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}

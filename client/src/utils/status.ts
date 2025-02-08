@@ -1,3 +1,5 @@
+import { TaskStatus } from '@/types';
+
 // Replace hyphens with space and capitalize first letter
 export const statusTitle = (status: string) =>
   status.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
@@ -17,3 +19,11 @@ export const statusBorderColors = {
   'on-hold': 'border-orange-300',
   'under-review': 'border-yellow-300'
 } as const;
+
+export const taskStatus: Record<TaskStatus, string> = {
+  pending: 'Pending',
+  completed: 'Completed',
+  'in-progress': 'In Progress',
+  'on-hold': 'On Hold',
+  'under-review': 'Under Review'
+};
