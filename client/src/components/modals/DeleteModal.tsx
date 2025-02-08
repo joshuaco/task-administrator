@@ -5,17 +5,30 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import { UseMutateFunction } from '@tanstack/react-query';
 import { AlertTriangle } from 'lucide-react';
 import { Fragment } from 'react/jsx-runtime';
 
 interface DeleteModalProps {
   title: string;
   name: string;
+  id: string;
   onShow: boolean;
   onClose: () => void;
+  onDelete: UseMutateFunction<void, Error, string, unknown>;
 }
 
-function DeleteModal({ title, name, onClose, onShow }: DeleteModalProps) {
+function DeleteModal({
+  title,
+  name,
+  id,
+  onClose,
+  onShow,
+  onDelete
+}: DeleteModalProps) {
+  const handleDelete = () => {
+    onDelete(id);
+  };
   return (
     <>
       <Transition appear show={onShow} as={Fragment}>
@@ -64,7 +77,7 @@ function DeleteModal({ title, name, onClose, onShow }: DeleteModalProps) {
                   <div className='px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
                     <button
                       type='button'
-                      onClick={() => {}}
+                      onClick={handleDelete}
                       className='inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto'
                     >
                       Delete
