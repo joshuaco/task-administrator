@@ -7,6 +7,7 @@ interface TaskParams {
   formData: TaskFormData;
   projectId: Project['_id'];
   taskId: Task['_id'];
+  status: Task['status'];
 }
 
 export const createTask = async ({
@@ -74,6 +75,22 @@ export const deleteTask = async ({
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
     const { data } = await api.delete(url);
+    return data.message;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
+    }
+  }
+};
+
+export const updateTaskStatus = async ({
+  projectId,
+  taskId,
+  status
+}: Pick<TaskParams, 'projectId' | 'taskId' | 'status'>) => {
+  try {
+    const url = `/projects/${projectId}/tasks/${taskId}/status`;
+    const { data } = await api.patch(url, { status });
     return data.message;
   } catch (error) {
     if (isAxiosError(error)) {

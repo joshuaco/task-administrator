@@ -20,10 +20,10 @@ export const statusBorderColors = {
   'under-review': 'border-yellow-300'
 } as const;
 
-export const taskStatus: Record<TaskStatus, string> = {
+export const taskStatus: { [key in TaskStatus]: string } = {
   pending: 'Pending',
-  completed: 'Completed',
-  'in-progress': 'In Progress',
   'on-hold': 'On Hold',
-  'under-review': 'Under Review'
+  'in-progress': 'In Progress',
+  'under-review': 'Under Review',
+  completed: 'Completed'
 };

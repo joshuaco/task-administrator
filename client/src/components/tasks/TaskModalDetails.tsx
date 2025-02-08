@@ -1,7 +1,8 @@
 import { Bookmark, Calendar, Clock, User, X } from 'lucide-react';
+import { useUpdateStatus } from '@/hooks/task/useUpdateStatus';
 import { useGetTask } from '@/hooks/task/useGetTask';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { statusTitle, taskStatus } from '@/utils/status';
+import { taskStatus } from '@/utils/status';
 import { formatDate } from '@/utils/date';
 import { Fragment } from 'react';
 import { toast } from 'sonner';
@@ -13,14 +14,25 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import { TaskStatus } from '@/types';
 
 export default function TaskModalDetails() {
   const navigate = useNavigate();
   const { viewTaskId, taskData, isError, error, projectId } = useGetTask();
+  const { updateStatusMutation } = useUpdateStatus();
   const show = viewTaskId ? true : false;
 
   const handleClose = () => {
     navigate(location.pathname, { replace: true });
+  };
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const data = {
+      projectId,
+      taskId: viewTaskId,
+      status: e.target.value as TaskStatus
+    };
+    updateStatusMutation(data);
   };
 
   if (isError) {
@@ -101,15 +113,15 @@ export default function TaskModalDetails() {
                           <label>Status: </label>
                           <Select
                             name='status'
-                            defaultValue={taskStatus[taskData.status]}
-                            aria-label='task-status'
+                            defaultValue={taskData.status}
                             className={
                               'ml-2 border data-[hover]:shadow data-[focus]:bg-blue-100 p-0.5'
                             }
+                            onChange={handleStatusChange}
                           >
-                            {Object.keys(taskStatus).map((status) => (
-                              <option key={status} value={status}>
-                                {statusTitle(status)}
+                            {Object.entries(taskStatus).map(([key, value]) => (
+                              <option key={key} value={key}>
+                                {value}
                               </option>
                             ))}
                           </Select>
