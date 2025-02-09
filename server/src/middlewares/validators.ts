@@ -54,3 +54,21 @@ export const taskStatusValidator = () => {
       .withMessage('Invalid status')
   ];
 };
+
+export const authRegisterValidator = () => {
+  return [
+    body('name').trim().notEmpty().withMessage('Name is required'),
+    body('email').trim().notEmpty().isEmail().withMessage('Email is invalid'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .isLength({ min: 8 })
+      .withMessage('Password must be at least 8 characters long'),
+    body('password-confirm').custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Passwords do not match');
+      }
+      return true;
+    })
+  ];
+};
