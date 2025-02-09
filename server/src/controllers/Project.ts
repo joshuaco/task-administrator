@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import ProjectModel from '../models/Project';
+import TaskModel from '../models/Task';
 
 class Project {
   static createProject = async (req: Request, res: Response) => {
@@ -69,7 +70,11 @@ class Project {
 
   static deleteProject = async (req: Request, res: Response) => {
     try {
-      const project = await ProjectModel.findByIdAndDelete(req.params.id);
+      const { id } = req.params;
+
+      await TaskModel.deleteMany({ project: id });
+
+      const project = await ProjectModel.findByIdAndDelete(id);
 
       if (!project) {
         res.status(404).json({ error: 'Project not found' });
