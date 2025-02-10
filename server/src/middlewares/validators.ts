@@ -72,3 +72,14 @@ export const authRegisterValidator = () => {
     })
   ];
 };
+
+export const authConfirmTokenValidator = () => {
+  return [body('token').trim().notEmpty().withMessage('Token is required')];
+};
+
+export const authLoginValidator = () => {
+  return [
+    body('email').trim().notEmpty().isEmail().withMessage('Email is invalid'),
+    body('password').trim().notEmpty().withMessage('Password is required')
+  ];
+};

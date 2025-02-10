@@ -1,13 +1,28 @@
 import { Router } from 'express';
+import {
+  authConfirmTokenValidator,
+  authLoginValidator,
+  authRegisterValidator,
+  handleErrors
+} from '../middlewares/validators';
 import AuthController from '../controllers/Auth';
-import { authRegisterValidator, handleErrors } from '../middlewares/validators';
+
 const router = Router();
 
 router.post(
-  '/register',
+  '/create-account',
   authRegisterValidator(),
   handleErrors,
   AuthController.createAccount
 );
+
+router.post(
+  '/confirm-account',
+  authConfirmTokenValidator(),
+  handleErrors,
+  AuthController.confirmAccount
+);
+
+router.post('/login', authLoginValidator(), handleErrors, AuthController.login);
 
 export default router;

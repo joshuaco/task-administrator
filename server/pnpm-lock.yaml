@@ -32,6 +32,9 @@ importers:
       morgan:
         specifier: 1.10.0
         version: 1.10.0
+      nodemailer:
+        specifier: 6.10.0
+        version: 6.10.0
     devDependencies:
       '@types/bcrypt':
         specifier: 5.0.2
@@ -45,6 +48,9 @@ importers:
       '@types/morgan':
         specifier: 1.9.9
         version: 1.9.9
+      '@types/nodemailer':
+        specifier: 6.4.17
+        version: 6.4.17
       nodemon:
         specifier: 3.1.9
         version: 3.1.9
@@ -119,6 +125,9 @@ packages:
 
   '@types/node@22.10.4':
     resolution: {integrity: sha512-99l6wv4HEzBQhvaU/UGoeBoCK61SCROQaCCGyQSgX2tEQ3rKkNZ2S7CEWnS/4s1LV+8ODdK21UeyR1fHP2mXug==}
+
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
 
   '@types/qs@6.9.17':
     resolution: {integrity: sha512-rX4/bPcfmvxHDv0XjfJELTTr+iB+tn032nPILqHm5wbthUUUuVtNGGqzhya9XUxjTP8Fpr0qYgSZZKxGY++svQ==}
@@ -601,6 +610,10 @@ packages:
       encoding:
         optional: true
 
+  nodemailer@6.10.0:
+    resolution: {integrity: sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==}
+    engines: {node: '>=6.0.0'}
+
   nodemon@3.1.9:
     resolution: {integrity: sha512-hdr1oIb2p6ZSxu3PB2JWWYS7ZQ0qvaZsc3hK8DR8f02kRzc8rjYmxAIvdz+aYC+8F2IjNaB7HMcSDg8nQpJxyg==}
     engines: {node: '>=10'}
@@ -958,6 +971,10 @@ snapshots:
   '@types/node@22.10.4':
     dependencies:
       undici-types: 6.20.0
+
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.10.4
 
   '@types/qs@6.9.17': {}
 
@@ -1435,6 +1452,8 @@ snapshots:
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+
+  nodemailer@6.10.0: {}
 
   nodemon@3.1.9:
     dependencies:
