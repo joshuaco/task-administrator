@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { LoginFormData } from '@/types';
 import { Lock, LogIn, Mail } from 'lucide-react';
 import ErrorText from '@/components/forms/ErrorText';
@@ -21,15 +22,16 @@ function Login() {
       </h2>
       <p className='mt-2 text-center text-sm text-slate-100'>
         Or{' '}
-        <button
+        <Link
+          to='/register'
           type='button'
           className='font-medium text-fuchsia-600 hover:text-fuchsia-500 focus:outline-none focus:underline transition ease-in-out duration-150'
         >
           create a new account
-        </button>
+        </Link>
       </p>
 
-      <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
+      <div className='mt-4 sm:mx-auto sm:w-full sm:max-w-md'>
         <form
           className='space-y-6 p-4'
           onSubmit={handleSubmit(handleLogin)}
