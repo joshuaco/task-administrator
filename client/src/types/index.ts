@@ -16,5 +16,5 @@ export type Auth = z.infer<typeof authSchema>;
 export type LoginFormData = Pick<Auth, 'email' | 'password'>;
 export type RegisterFormData = Pick<
   Auth,
-  'name' | 'email' | 'password' | 'passwordConfirm'
+  'name' | 'email' | 'password' | 'password-confirm'
 >;

@@ -1,7 +1,8 @@
-import { useForm } from 'react-hook-form';
+import { Lock, Mail, User, UserPlus2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useRegister } from '@/hooks/auth/useRegister';
 import { RegisterFormData } from '@/types';
-import { Lock, LogIn, Mail, User } from 'lucide-react';
 import ErrorText from '@/components/forms/ErrorText';
 
 function Register() {
@@ -13,14 +14,15 @@ function Register() {
   } = useForm<RegisterFormData>();
 
   const password = watch('password');
+  const { createAccount } = useRegister();
 
-  const handleRegister = (formData: RegisterFormData) => {
-    console.log(formData);
+  const handleRegister = async (formData: RegisterFormData) => {
+    await createAccount(formData);
   };
 
   return (
     <>
-      <h2 className='text-center text-3xl font-extrabold text-slate-100'>
+      <h2 className='text-center text-3xl font-extrabold text-white'>
         Create your account
       </h2>
       <p className='mt-2 text-center text-sm text-slate-100'>
@@ -61,6 +63,7 @@ function Register() {
                   focus:border-purple-500 focus:z-10 sm:text-sm rounded-lg'
                 />
               </div>
+              {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
             </div>
             <div>
               <label htmlFor='email' className='sr-only'>
@@ -127,7 +130,7 @@ function Register() {
                   <Lock className='h-5 w-5 text-purple-500' />
                 </div>
                 <input
-                  {...register('passwordConfirm', {
+                  {...register('password-confirm', {
                     required: 'Password is required',
                     validate: (value) =>
                       value === password || 'Passwords do not match'
@@ -140,8 +143,8 @@ function Register() {
                   focus:border-purple-500 focus:z-10 sm:text-sm rounded-lg'
                 />
               </div>
-              {errors.passwordConfirm && (
-                <ErrorText>{errors.passwordConfirm.message}</ErrorText>
+              {errors['password-confirm'] && (
+                <ErrorText>{errors['password-confirm'].message}</ErrorText>
               )}
             </div>
           </div>
@@ -184,7 +187,7 @@ function Register() {
                 </span>
               ) : (
                 <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-                  <LogIn className='h-5 w-5 text-slate-200 group-hover:text-slate-100' />
+                  <UserPlus2 className='h-5 w-5 text-slate-200 group-hover:text-slate-100' />
                 </span>
               )}
               {isSubmitting ? 'Creating account...' : 'Create account'}

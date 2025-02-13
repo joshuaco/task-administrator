@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { LoginFormData } from '@/types';
-import { Lock, LogIn, Mail } from 'lucide-react';
+import { Github, Gitlab, Lock, LogIn, Mail, UserCircle2 } from 'lucide-react';
 import ErrorText from '@/components/forms/ErrorText';
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
 
   return (
     <>
-      <h2 className='text-center text-3xl font-extrabold text-slate-100'>
+      <h2 className='text-center text-3xl font-extrabold text-white'>
         Sign in to your account
       </h2>
       <p className='mt-2 text-center text-sm text-slate-100'>
@@ -140,6 +140,38 @@ function Login() {
             </button>
           </div>
         </form>
+
+        <div className='mt-6 px-4'>
+          <div className='relative'>
+            <div className='absolute inset-0 flex items-center'>
+              <div className='w-full border-t border-gray-300' />
+            </div>
+            <div className='relative flex justify-center text-sm'>
+              <span className='px-2 bg-gray-800 text-slate-100'>
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className='mt-6 grid grid-cols-2 gap-3'>
+            <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-200 rounded-md shadow-sm bg-white text-sm font-medium text-gray-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+              <span className='sr-only'>Sign in with GitHub</span>
+              <Github className='w-5 h-5' />
+              <span className='ml-2'>GitHub</span>
+            </button>
+            <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-200 rounded-md shadow-sm bg-white text-sm font-medium text-gray-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+              <span className='sr-only'>Sign in with GitHub</span>
+              <Gitlab className='w-5 h-5' />
+              <span className='ml-2'>GitLab</span>
+            </button>
+          </div>
+          <div className='mt-6'>
+            <button className='w-full inline-flex justify-center items-center py-2 px-4 border border-gray-200 rounded-md shadow-sm bg-gray-50 text-sm font-medium text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'>
+              <UserCircle2 className='w-5 h-5 mr-2' />
+              Continue as guest
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
