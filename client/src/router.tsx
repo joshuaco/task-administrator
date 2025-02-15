@@ -25,7 +25,7 @@ function router() {
         <Route element={<Auth />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/confirm-account' element={<ConfirmAccount />} />
+          <Route path='/auth/confirm-account' element={<ConfirmAccount />} />
         </Route>
       </Routes>
     </BrowserRouter>

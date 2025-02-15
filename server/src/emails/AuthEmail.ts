@@ -8,8 +8,6 @@ interface UserData {
 
 const { FRONTEND_URL } = process.env;
 
-console.log(FRONTEND_URL);
-
 export class AuthEmail {
   static sendConfirmationEmail = async (user: UserData) => {
     transporter.sendMail(
@@ -21,7 +19,7 @@ export class AuthEmail {
         html: `
           <h1>Welcome to UpTask</h1>
           <p>Please confirm your account following the link below:</p>
-          <a href=${FRONTEND_URL}/confirm-account>Confirm Account</a>
+          <a href=${FRONTEND_URL}/auth/confirm-account>Confirm Account</a>
           <p>Your account confirmation code is:</p>
           <b>${user.token}</b>
           <p>Thank you for using UpTask!</p>
