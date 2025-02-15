@@ -3,6 +3,7 @@ import {
   authConfirmTokenValidator,
   authLoginValidator,
   authRegisterValidator,
+  authRequestCodeValidator,
   handleErrors
 } from '../middlewares/validators';
 import AuthController from '../controllers/Auth';
@@ -24,5 +25,12 @@ router.post(
 );
 
 router.post('/login', authLoginValidator(), handleErrors, AuthController.login);
+
+router.post(
+  '/request-code',
+  authRequestCodeValidator(),
+  handleErrors,
+  AuthController.requestConfirmationCode
+);
 
 export default router;

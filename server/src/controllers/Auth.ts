@@ -91,6 +91,44 @@ class Auth {
       res.status(500).json({ message: error.message });
     }
   };
+
+  static requestConfirmationCode = async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+      const user = await UserModel.findOne({ email });
+
+      if (!user) {
+        res.status(404).json({ message: 'Email not found' });
+        return;
+      }
+
+      if (user.confirmed) {
+        res.status(403).json({ message: 'Account already confirmed' });
+        return;
+      }
+
+      const existingToken = await TokenModel.findOne({ user: user.id });
+
+      if (existingToken) {
+        await existingToken.deleteOne();
+      }
+
+      const token = new TokenModel();
+      token.token = generateToken();
+      token.user = user.id;
+
+      await AuthEmail.sendConfirmationEmail({
+        email: user.email,
+        name: user.name,
+        token: token.token
+      });
+
+      await token.save();
+      res.status(200).json({ message: 'Email sent' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 export default Auth;

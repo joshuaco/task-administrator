@@ -83,3 +83,9 @@ export const authLoginValidator = () => {
     body('password').trim().notEmpty().withMessage('Password is required')
   ];
 };
+
+export const authRequestCodeValidator = () => {
+  return [
+    body('email').trim().notEmpty().isEmail().withMessage('Email is invalid')
+  ];
+};
