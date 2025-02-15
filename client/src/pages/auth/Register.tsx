@@ -1,4 +1,4 @@
-import { Lock, Mail, User, UserPlus2 } from 'lucide-react';
+import { Github, Gitlab, Lock, Mail, User, UserPlus2 } from 'lucide-react';
 import { useRegister } from '@/hooks/auth/useRegister';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -149,32 +149,6 @@ function Register() {
             </div>
           </div>
 
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center'>
-              <input
-                id='remember-me'
-                name='remember-me'
-                type='checkbox'
-                className='h-4 w-4 bg-purple-600 focus:ring-purple-500 border-gray-300 rounded'
-              />
-              <label
-                htmlFor='remember-me'
-                className='ml-2 block text-sm text-slate-100'
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className='text-sm'>
-              <a
-                href='#'
-                className='font-medium text-fuchsia-600 hover:text-fuchsia-500 focus:outline-none focus:underline transition ease-in-out duration-150'
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
           <div>
             <button
               type='submit'
@@ -194,6 +168,32 @@ function Register() {
             </button>
           </div>
         </form>
+
+        <div className='mt-6 px-4'>
+          <div className='relative'>
+            <div className='absolute inset-0 flex items-center'>
+              <div className='w-full border-t border-gray-300' />
+            </div>
+            <div className='relative flex justify-center text-sm'>
+              <span className='px-2 bg-gray-800 text-slate-100'>
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className='mt-6 grid grid-cols-2 gap-3'>
+            <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-200 rounded-md shadow-sm bg-white text-sm font-medium text-gray-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+              <span className='sr-only'>Sign in with GitHub</span>
+              <Github className='w-5 h-5' />
+              <span className='ml-2'>GitHub</span>
+            </button>
+            <button className='w-full inline-flex justify-center py-2 px-4 border border-gray-200 rounded-md shadow-sm bg-white text-sm font-medium text-gray-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+              <span className='sr-only'>Sign in with GitHub</span>
+              <Gitlab className='w-5 h-5' />
+              <span className='ml-2'>GitLab</span>
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

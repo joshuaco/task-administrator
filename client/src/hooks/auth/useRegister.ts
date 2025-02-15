@@ -1,6 +1,6 @@
 import { toast } from 'sonner';
-import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { createAccount as registerAccount } from '@/api/auth';
 
 export const useRegister = () => {
@@ -12,7 +12,7 @@ export const useRegister = () => {
     },
     onSuccess: (data: string) => {
       toast.success(data);
-      navigate('/login');
+      navigate('/auth/confirm-account');
     }
   });
 

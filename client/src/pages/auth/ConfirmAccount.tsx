@@ -1,13 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { confirmAccount } from '@/api/auth';
-import { CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 import PinField from 'react-pin-field';
 
 function ConfirmAccount() {
+  const navigate = useNavigate();
+
   const handleComplete = async (token: string) => {
     try {
       const message = await confirmAccount(token);
       toast.success(message);
+      navigate('/login');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -38,12 +41,7 @@ function ConfirmAccount() {
             />
           </div>
         </div>
-        <button className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed'>
-          <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-            <CheckCircle2 className='h-5 w-5 text-slate-200 group-hover:text-slate-100' />
-          </span>
-          Verify code
-        </button>
+
         <div className='text-center'>
           <p className='text-sm text-slate-100'>
             Didn't receive the code?{' '}
