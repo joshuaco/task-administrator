@@ -1,9 +1,17 @@
+import { confirmAccount } from '@/api/auth';
 import { CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 import PinField from 'react-pin-field';
 
 function ConfirmAccount() {
-  const handleComplete = (value: string) => {
-    console.log(value);
+  const handleComplete = async (token: string) => {
+    try {
+      await confirmAccount(token);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   return (

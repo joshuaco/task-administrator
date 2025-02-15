@@ -5,10 +5,10 @@ import { createAccount as registerAccount } from '@/api/auth';
 export const useRegister = () => {
   const { mutateAsync: createAccount } = useMutation({
     mutationFn: registerAccount,
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(error.message);
     },
-    onSuccess: (data) => {
+    onSuccess: (data: string) => {
       toast.success(data);
     }
   });
