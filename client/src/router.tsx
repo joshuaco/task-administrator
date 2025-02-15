@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProjectDetails from '@/pages/projects/ProjectDetails';
 import CreateProject from '@/pages/projects/CreateProject';
+import ConfirmAccount from '@/pages/auth/ConfirmAccount';
 import EditProject from '@/pages/projects/EditProject';
 import TasksView from '@/pages/tasks/TasksView';
 import Register from '@/pages/auth/Register';
@@ -24,6 +25,7 @@ function router() {
         <Route element={<Auth />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/confirm-account' element={<ConfirmAccount />} />
         </Route>
       </Routes>
     </BrowserRouter>

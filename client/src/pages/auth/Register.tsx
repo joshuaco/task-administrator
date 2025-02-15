@@ -1,7 +1,7 @@
 import { Lock, Mail, User, UserPlus2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import { useRegister } from '@/hooks/auth/useRegister';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { RegisterFormData } from '@/types';
 import ErrorText from '@/components/forms/ErrorText';
 
