@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
-import { RegisterFormData } from '@/types';
+import { LoginFormData, RegisterFormData } from '@/types';
 
 export async function createAccount(formData: RegisterFormData) {
   try {
@@ -17,6 +17,18 @@ export async function createAccount(formData: RegisterFormData) {
 export async function confirmAccount(token: string) {
   try {
     const { data } = await api.post('/auth/confirm-account', { token });
+    return data.message as string;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}
+
+export async function loginAccount(formData: LoginFormData) {
+  try {
+    const { data } = await api.post('/auth/login', formData);
     return data.message as string;
   } catch (error) {
     if (isAxiosError(error)) {

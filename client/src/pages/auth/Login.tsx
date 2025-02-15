@@ -1,7 +1,8 @@
+import { Github, Gitlab, Lock, LogIn, Mail, UserCircle2 } from 'lucide-react';
+import { useLogin } from '@/hooks/auth/useLogin';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { LoginFormData } from '@/types';
-import { Github, Gitlab, Lock, LogIn, Mail, UserCircle2 } from 'lucide-react';
 import ErrorText from '@/components/forms/ErrorText';
 
 function Login() {
@@ -11,8 +12,10 @@ function Login() {
     formState: { errors, isSubmitting }
   } = useForm<LoginFormData>();
 
-  const handleLogin = (formData: LoginFormData) => {
-    console.log(formData);
+  const { login } = useLogin();
+
+  const handleLogin = async (formData: LoginFormData) => {
+    await login(formData);
   };
 
   return (
