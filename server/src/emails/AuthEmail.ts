@@ -8,6 +8,8 @@ interface UserData {
 
 const { FRONTEND_URL } = process.env;
 
+console.log(FRONTEND_URL);
+
 export class AuthEmail {
   static sendConfirmationEmail = async (user: UserData) => {
     transporter.sendMail(
