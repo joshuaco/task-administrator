@@ -6,7 +6,8 @@ import PinField from 'react-pin-field';
 function ConfirmAccount() {
   const handleComplete = async (token: string) => {
     try {
-      await confirmAccount(token);
+      const message = await confirmAccount(token);
+      toast.success(message);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
