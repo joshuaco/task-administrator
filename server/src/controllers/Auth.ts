@@ -130,7 +130,7 @@ class Auth {
     }
   };
 
-  static resetPassword = async (req: Request, res: Response) => {
+  static forgotPassword = async (req: Request, res: Response) => {
     try {
       const { email } = req.body;
       const user = await UserModel.findOne({ email });
@@ -155,6 +155,42 @@ class Auth {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
+  };
+
+  static validateToken = async (req: Request, res: Response) => {
+    try {
+      const { token } = req.body;
+      const tokenDoc = await TokenModel.findOne({ token });
+
+      if (!tokenDoc) {
+        res.status(404).json({ message: 'Invalid token' });
+        return;
+      }
+
+      await tokenDoc.deleteOne();
+      res.status(200).json({ message: 'Reset your password' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  static updatePasswordWithToken = async (req: Request, res: Response) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const tokenDoc = await TokenModel.findOne({ token });
+
+    if (!tokenDoc) {
+      res.status(404).json({ message: 'Invalid token' });
+      return;
+    }
+
+    const user = await UserModel.findById(tokenDoc.user);
+    user.password = await hashPassword(password);
+
+    await Promise.allSettled([user.save(), tokenDoc.deleteOne()]);
+
+    res.status(200).json({ message: 'Password updated successfully' });
   };
 }
 

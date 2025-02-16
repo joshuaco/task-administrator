@@ -89,3 +89,21 @@ export const authRequestCodeValidator = () => {
     body('email').trim().notEmpty().isEmail().withMessage('Email is invalid')
   ];
 };
+
+export const authUpdatePasswordValidator = () => {
+  return [
+    param('token').isNumeric().withMessage('Invalid token'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('Password is required')
+      .isLength({ min: 8 })
+      .withMessage('Password must be at least 8 characters long'),
+    body('password-confirm').custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Passwords do not match');
+      }
+      return true;
+    })
+  ];
+};

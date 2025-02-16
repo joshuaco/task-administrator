@@ -4,6 +4,7 @@ import {
   authLoginValidator,
   authRegisterValidator,
   authRequestCodeValidator,
+  authUpdatePasswordValidator,
   handleErrors
 } from '../middlewares/validators';
 import AuthController from '../controllers/Auth';
@@ -34,10 +35,24 @@ router.post(
 );
 
 router.post(
-  '/reset-password',
+  '/forgot-password',
   authRequestCodeValidator(),
   handleErrors,
-  AuthController.resetPassword
+  AuthController.forgotPassword
+);
+
+router.post(
+  '/validate-token',
+  authConfirmTokenValidator(),
+  handleErrors,
+  AuthController.validateToken
+);
+
+router.post(
+  '/reset-password/:token',
+  authUpdatePasswordValidator(),
+  handleErrors,
+  AuthController.updatePasswordWithToken
 );
 
 export default router;
