@@ -37,3 +37,15 @@ export async function loginAccount(formData: LoginFormData) {
     throw error;
   }
 }
+
+export async function forgotPassword(email: LoginFormData['email']) {
+  try {
+    const { data } = await api.post('/auth/reset-password', { email });
+    return data.message as string;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}

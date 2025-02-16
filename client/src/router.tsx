@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ForgotPasswordView from './pages/auth/ForgotPasswordView';
+import ResetPasswordView from './pages/auth/ResetPasswordView';
 import ProjectDetails from '@/pages/projects/ProjectDetails';
 import CreateProject from '@/pages/projects/CreateProject';
 import ConfirmAccount from '@/pages/auth/ConfirmAccount';
@@ -26,6 +28,11 @@ function router() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/auth/confirm-account' element={<ConfirmAccount />} />
+          <Route path='/auth/reset-password' element={<ResetPasswordView />} />
+          <Route
+            path='/auth/forgot-password'
+            element={<ForgotPasswordView />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

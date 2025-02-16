@@ -115,12 +115,12 @@ function Login() {
             </div>
 
             <div className='text-sm'>
-              <a
-                href='#'
+              <Link
+                to='/auth/forgot-password'
                 className='font-medium text-fuchsia-600 hover:text-fuchsia-500 focus:outline-none focus:underline transition ease-in-out duration-150'
               >
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
