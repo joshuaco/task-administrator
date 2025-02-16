@@ -129,6 +129,33 @@ class Auth {
       res.status(500).json({ message: error.message });
     }
   };
+
+  static resetPassword = async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+      const user = await UserModel.findOne({ email });
+
+      if (!user) {
+        res.status(404).json({ message: "Email doesn't found" });
+        return;
+      }
+
+      const token = new TokenModel();
+      token.token = generateToken();
+      token.user = user.id;
+
+      await AuthEmail.sendPasswordResetToken({
+        email: user.email,
+        name: user.name,
+        token: token.token
+      });
+
+      await token.save();
+      res.status(200).json({ message: 'Please, check your email' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 export default Auth;
