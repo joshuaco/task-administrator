@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
-import { LoginFormData, RegisterFormData } from '@/types';
+import { LoginFormData, RegisterFormData, ResetPasswordForm } from '@/types';
 
 export async function createAccount(formData: RegisterFormData) {
   try {
@@ -40,7 +40,38 @@ export async function loginAccount(formData: LoginFormData) {
 
 export async function forgotPassword(email: LoginFormData['email']) {
   try {
-    const { data } = await api.post('/auth/reset-password', { email });
+    const { data } = await api.post('/auth/forgot-password', { email });
+    return data.message as string;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}
+
+export async function validateToken(token: string) {
+  try {
+    const { data } = await api.post('/auth/validate-token', { token });
+    return data.message as string;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}
+
+export async function updatePassword({
+  formData,
+  token
+}: {
+  formData: ResetPasswordForm;
+  token: string;
+}) {
+  try {
+    console.log(formData);
+    const { data } = await api.post(`/auth/reset-password/${token}`, formData);
     return data.message as string;
   } catch (error) {
     if (isAxiosError(error)) {

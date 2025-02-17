@@ -1,9 +1,17 @@
 import { Lock, LockOpen } from 'lucide-react';
+import { updatePassword } from '@/api/auth';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import type { ResetPasswordForm } from '@/types';
 import ErrorText from './ErrorText';
 
-function ResetPasswordForm() {
+interface ResetPasswordFormProps {
+  token: string;
+}
+
+function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,13 +21,23 @@ function ResetPasswordForm() {
 
   const password = watch('password');
 
-  const handleNewPassword = () => {};
+  const handleNewPassword = async (formData: ResetPasswordForm) => {
+    try {
+      const response = await updatePassword({ formData, token });
+      toast.success(response);
+      navigate('/login');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
 
   return (
     <>
       <form
         onSubmit={handleSubmit(handleNewPassword)}
-        className='space-y-6 p-4'
+        className='space-y-6 py-4 max-w-sm mx-auto'
         noValidate
       >
         <div>

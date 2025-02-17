@@ -1,10 +1,10 @@
-import { toast } from 'sonner';
-import { Mail } from 'lucide-react';
+import { ArrowLeft, KeyRound, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { forgotPassword } from '@/api/auth';
 import { ForgotPasswordForm } from '@/types';
 import ErrorText from '@/components/forms/ErrorText';
-import { Link } from 'react-router-dom';
 
 function ForgotPasswordView() {
   const {
@@ -28,9 +28,13 @@ function ForgotPasswordView() {
 
   return (
     <>
-      <h2 className='text-center text-3xl font-extrabold text-white'>
-        Reset Password
-      </h2>
+      <div className='px-4 sm:max-w-sm mx-auto'>
+        <h2 className='text-3xl font-extrabold text-white'>Reset Password</h2>
+        <p className='mt-2 text-slate-200'>
+          Enter your email address and we'll send you instructions to reset your
+          password.
+        </p>
+      </div>
 
       <div className='mt-8 sm:mx-auto max-w-full sm:max-w-sm px-4'>
         <form
@@ -69,13 +73,22 @@ function ForgotPasswordView() {
               type='submit'
               className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              Reset Password
+              <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
+                <KeyRound className='h-5 w-5 text-slate-300 group-hover:text-white' />
+              </span>
+              Send reset instructions
             </button>
           </div>
         </form>
 
-        <div className='mt-8 text-right'>
-          <Link to='/login' className='text-slate-300 text-sm'>
+        <div className='mt-8 text-left'>
+          <Link
+            to='/login'
+            className='text-slate-300 text-sm hover:text-white flex items-center'
+          >
+            <span>
+              <ArrowLeft className='h-5 w-5 mr-3' />
+            </span>
             Back to login
           </Link>
         </div>
