@@ -167,7 +167,6 @@ class Auth {
         return;
       }
 
-      await tokenDoc.deleteOne();
       res.status(200).json({ message: 'Reset your password' });
     } catch (error) {
       res.status(500).json({ message: error.message });
