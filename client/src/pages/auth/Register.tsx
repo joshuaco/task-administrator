@@ -22,7 +22,7 @@ function Register() {
 
   return (
     <>
-      <h2 className='text-center text-3xl font-extrabold text-white'>
+      <h2 className='text-center text-2xl sm:text-3xl font-extrabold text-white'>
         Create your account
       </h2>
       <p className='mt-2 text-center text-sm text-slate-100'>
