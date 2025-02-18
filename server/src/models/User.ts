@@ -1,6 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
 export type UserType = Document & {
+  _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
   password: string;

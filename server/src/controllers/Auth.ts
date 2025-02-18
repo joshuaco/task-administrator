@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { comparePassword, hashPassword } from '../utils/auth';
+import { generateJWT } from '../utils/jwt';
 import { generateToken } from '../utils/token';
 import { AuthEmail } from '../emails/AuthEmail';
 import UserModel from '../models/User';
@@ -86,7 +87,9 @@ class Auth {
         return;
       }
 
-      res.status(200).json({ message: 'Logged in successfully' });
+      const token = generateJWT({ id: user._id });
+
+      res.status(200).json({ message: 'Logged in successfully', token });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
