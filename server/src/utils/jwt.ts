@@ -9,8 +9,13 @@ type UserPayload = {
 
 export const generateJWT = (payload: UserPayload) => {
   const token = jwt.sign(payload, JWT_KEY, {
-    expiresIn: '1m'
+    expiresIn: '1d'
   });
 
   return token;
+};
+
+export const verifyJWT = (token: string) => {
+  const data = jwt.verify(token, JWT_KEY);
+  if (typeof data === 'object' && data.id) return data;
 };

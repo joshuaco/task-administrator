@@ -6,8 +6,11 @@ import {
   projectValidator,
   projectIDValidator
 } from '../middlewares/validators';
+import { authenticate } from '../middlewares/auth';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', ProjectController.getAllProjects);
 
