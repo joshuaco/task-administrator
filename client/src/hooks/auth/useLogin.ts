@@ -9,7 +9,10 @@ export const useLogin = () => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
-      toast.success(data);
+      toast.success(data?.message);
+      if (data?.token) {
+        localStorage.setItem('AUTH_TOKEN', data.token);
+      }
     }
   });
 

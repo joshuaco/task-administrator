@@ -6,3 +6,8 @@ export const authSchema = z.object({
   password: z.string(),
   'password-confirm': z.string()
 });
+
+export const loginSchema = z.object({
+  message: z.string(),
+  token: z.string()
+});

@@ -1,5 +1,6 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
+import { loginSchema } from '@/schemas/auth';
 import { LoginFormData, RegisterFormData, ResetPasswordForm } from '@/types';
 
 export async function createAccount(formData: RegisterFormData) {
@@ -29,7 +30,10 @@ export async function confirmAccount(token: string) {
 export async function loginAccount(formData: LoginFormData) {
   try {
     const { data } = await api.post('/auth/login', formData);
-    return data.message as string;
+    const response = loginSchema.safeParse(data);
+    if (response.success) {
+      return response.data;
+    }
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.message);
@@ -70,7 +74,6 @@ export async function updatePassword({
   token: string;
 }) {
   try {
-    console.log(formData);
     const { data } = await api.post(`/auth/reset-password/${token}`, formData);
     return data.message as string;
   } catch (error) {
