@@ -7,6 +7,7 @@ import {
   authUpdatePasswordValidator,
   handleErrors
 } from '../middlewares/validators';
+import { authenticate } from '../middlewares/auth';
 import AuthController from '../controllers/Auth';
 
 const router = Router();
@@ -54,5 +55,7 @@ router.post(
   handleErrors,
   AuthController.updatePasswordWithToken
 );
+
+router.get('/user', authenticate, AuthController.getUser);
 
 export default router;

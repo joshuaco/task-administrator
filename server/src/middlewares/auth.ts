@@ -26,10 +26,11 @@ export const authenticate = async (
 
   try {
     const data = verifyJWT(token);
-    const user = await UserModel.findById(data.id).select('_id name email');
+    const user = await UserModel.findById(data.id).select('id name email');
 
     if (user) {
       req.user = user;
+      next();
     } else {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -39,6 +40,4 @@ export const authenticate = async (
       res.status(401).json({ message: error.message });
     return;
   }
-
-  next();
 };

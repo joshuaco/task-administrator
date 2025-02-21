@@ -194,6 +194,11 @@ class Auth {
 
     res.status(200).json({ message: 'Password updated successfully' });
   };
+
+  static getUser = async (req: Request, res: Response) => {
+    res.json({ user: req.user });
+    return;
+  };
 }
 
 export default Auth;
