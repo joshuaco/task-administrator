@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/router/ProtectedRoute';
-import ForgotPasswordView from './pages/auth/ForgotPasswordView';
-import ResetPasswordView from './pages/auth/ResetPasswordView';
+import ProtectedRoute from '@/components/routes/ProtectedRoute';
+import ForgotPasswordView from '@/pages/auth/ForgotPasswordView';
+import ResetPasswordView from '@/pages/auth/ResetPasswordView';
 import ProjectDetails from '@/pages/projects/ProjectDetails';
 import CreateProject from '@/pages/projects/CreateProject';
 import ConfirmAccount from '@/pages/auth/ConfirmAccount';

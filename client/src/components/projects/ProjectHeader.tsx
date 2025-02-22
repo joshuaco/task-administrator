@@ -25,9 +25,14 @@ function ProjectHeader({ project, text }: ProjectHeaderProps) {
         </button>
         <div className='flex justify-between items-start'>
           <div>
-            <h1 className='text-2xl sm:text-3xl font-semibold tracking-tight'>
-              {project.projectName}
-            </h1>
+            <div className='flex gap-3'>
+              <h1 className='text-2xl sm:text-3xl font-semibold tracking-tight'>
+                {project.projectName}
+              </h1>
+              <p className='self-end text-lg text-gray-500 font-semibold'>
+                {project.clientName}
+              </p>
+            </div>
             <span
               className={`mt-2 inline-block px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800`}
             >

@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/auth/useAuth';
 import { useGetProjects } from '@/hooks/projects/useGetProjects';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectSkeleton from '@/components/projects/ProjectCardSkeleton';
+import EmptyState from '@/components/empty/EmptyState';
 
 function Home() {
   const { projects, isLoading } = useGetProjects();
@@ -23,7 +24,7 @@ function Home() {
         <nav className='w-full sm:w-auto'>
           <Link
             to='/projects/create'
-            className='flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white text-lg font-medium py-2 px-4 
+            className='flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white text-lg font-medium py-2 px-4 
           rounded-xl transition-colors mt-6 sm:mt-0'
           >
             <Plus className='inline' />
@@ -41,6 +42,7 @@ function Home() {
           </div>
         )}
         {!isLoading && projects && <ProjectCard projects={projects} />}
+        {!isLoading && projects?.length === 0 && <EmptyState type='projects' />}
       </section>
     </>
   );

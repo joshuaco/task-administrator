@@ -6,6 +6,7 @@ import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskFormModal from '@/components/tasks/TaskFormModal';
 import TaskList from '@/components/tasks/TaskList';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
+import EmptyState from '@/components/empty/EmptyState';
 
 function ProjectDetails() {
   const navigate = useNavigate();
@@ -47,7 +48,11 @@ function ProjectDetails() {
                   </button>
                 </div>
                 <div>
-                  <TaskList tasks={project.tasks} />
+                  {project.tasks.length > 0 ? (
+                    <TaskList tasks={project.tasks} />
+                  ) : (
+                    <EmptyState type='tasks' />
+                  )}
                 </div>
               </div>
             </div>
