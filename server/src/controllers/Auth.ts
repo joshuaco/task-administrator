@@ -67,9 +67,7 @@ class Auth {
       const user = await UserModel.findOne({ email });
 
       if (!user) {
-        res
-          .status(404)
-          .json({ message: "Email doesn't found, create an account" });
+        res.status(404).json({ message: 'Incorrect Email' });
         return;
       }
 
