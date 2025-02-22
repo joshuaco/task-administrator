@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
-import { loginSchema } from '@/schemas/auth';
+import { loginSchema, userSchema } from '@/schemas/auth';
 import { LoginFormData, RegisterFormData, ResetPasswordForm } from '@/types';
 
 export async function createAccount(formData: RegisterFormData) {
@@ -87,7 +87,10 @@ export async function updatePassword({
 export async function getUser() {
   try {
     const { data } = await api('/auth/user');
-    return data.user;
+    const response = userSchema.safeParse(data.user);
+    if (response.success) {
+      return response.data;
+    }
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.message);

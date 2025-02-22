@@ -11,3 +11,12 @@ export const loginSchema = z.object({
   message: z.string(),
   token: z.string()
 });
+
+export const userSchema = authSchema
+  .pick({
+    name: true,
+    email: true
+  })
+  .extend({
+    _id: z.string()
+  });

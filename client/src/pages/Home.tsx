@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { getFullDate } from '@/utils/date';
+import { useAuth } from '@/hooks/auth/useAuth';
 import { useGetProjects } from '@/hooks/projects/useGetProjects';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectSkeleton from '@/components/projects/ProjectCardSkeleton';
 
 function Home() {
   const { projects, isLoading } = useGetProjects();
+  const { data: user } = useAuth();
 
   return (
     <>
@@ -14,7 +16,7 @@ function Home() {
         <div className='mt-5'>
           <p className='text-lg font-medium text-gray-500'>{getFullDate()}</p>
           <h1 className='text-3xl sm:text-4xl font-semibold'>
-            Welcome back, User
+            Welcome back, {user?.name.split(' ')[0]}
           </h1>
         </div>
 
