@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import {
-  CheckSquare,
-  CircleUserRound,
-  FolderKanban,
-  Menu,
-  X
-} from 'lucide-react';
+import { CheckSquare, FolderKanban, Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import ProfileDropdown from './dropdowns/ProfileDropdown';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,10 +34,8 @@ function Navbar() {
                 <CheckSquare size={20} />
                 <span>My Tasks</span>
               </a>
-              <button className='flex items-center space-x-2 text-gray-50 hover:text-gray-200'>
-                <CircleUserRound size={20} />
-                <span>Profile</span>
-              </button>
+
+              <ProfileDropdown />
             </div>
 
             <div className='md:hidden flex items-center'>
@@ -61,22 +54,20 @@ function Navbar() {
           <div className='px-8 pt-2 pb-3 space-y-1'>
             <a
               href='/projects'
-              className='flex items-center space-x-2 px-3 py-2 text-gray-50 hover:text-gray-200'
+              className='flex items-center space-x-2 px-1 py-2 text-gray-50 hover:text-gray-200'
             >
               <FolderKanban size={20} />
               <span>My Projects</span>
             </a>
             <a
               href='/tasks'
-              className='flex items-center space-x-2 px-3 py-2 text-gray-50 hover:text-gray-200'
+              className='flex items-center space-x-2 px-1 py-2 text-gray-50 hover:text-gray-200'
             >
               <CheckSquare size={20} />
               <span>My Tasks</span>
             </a>
-            <button className='flex items-center space-x-2 px-3 py-2 text-gray-50 hover:text-gray-200'>
-              <CircleUserRound size={20} />
-              <span>User</span>
-            </button>
+
+            <ProfileDropdown />
           </div>
         </div>
       )}

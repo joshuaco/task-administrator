@@ -14,8 +14,8 @@ export const useLogin = () => {
     onSuccess: (data) => {
       if (data?.token) {
         localStorage.setItem('AUTH_TOKEN', data.token);
+        navigate('/');
       }
-      navigate('/');
     }
   });
 
