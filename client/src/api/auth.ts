@@ -83,3 +83,15 @@ export async function updatePassword({
     throw error;
   }
 }
+
+export async function getUser() {
+  try {
+    const { data } = await api('/auth/user');
+    return data.user;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}
