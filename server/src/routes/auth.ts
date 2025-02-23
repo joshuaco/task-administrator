@@ -3,8 +3,8 @@ import {
   authConfirmTokenValidator,
   authLoginValidator,
   authRegisterValidator,
-  authRequestCodeValidator,
   authUpdatePasswordValidator,
+  emailValidator,
   handleErrors
 } from '../middlewares/validators';
 import { authenticate } from '../middlewares/auth';
@@ -30,14 +30,14 @@ router.post('/login', authLoginValidator(), handleErrors, AuthController.login);
 
 router.post(
   '/request-code',
-  authRequestCodeValidator(),
+  emailValidator(),
   handleErrors,
   AuthController.requestConfirmationCode
 );
 
 router.post(
   '/forgot-password',
-  authRequestCodeValidator(),
+  emailValidator(),
   handleErrors,
   AuthController.forgotPassword
 );

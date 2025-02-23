@@ -1,6 +1,6 @@
 import mongoose, { Document, PopulatedDoc } from 'mongoose';
 import type { TaskType } from './Task';
-import { UserType } from './User';
+import type { UserType } from './User';
 
 export type ProjectType = Document & {
   projectName: string;
@@ -8,6 +8,7 @@ export type ProjectType = Document & {
   description: string;
   tasks: PopulatedDoc<TaskType>[];
   manager: PopulatedDoc<UserType>;
+  team: PopulatedDoc<UserType>[];
 };
 
 const ProjectSchema = new mongoose.Schema(
@@ -16,7 +17,8 @@ const ProjectSchema = new mongoose.Schema(
     clientName: { type: String, required: true, trim: true },
     description: { type: String, required: true },
     tasks: [{ type: mongoose.Types.ObjectId, ref: 'Task' }],
-    manager: { type: mongoose.Types.ObjectId, ref: 'User' }
+    manager: { type: mongoose.Types.ObjectId, ref: 'User' },
+    team: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
   },
   { timestamps: true }
 );

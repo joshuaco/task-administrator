@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import taskRouter from './task';
+import teamRouter from './team';
 import ProjectController from '../controllers/Project';
 import {
   handleErrors,
@@ -44,5 +45,6 @@ router.delete(
 );
 
 router.use('/', taskRouter);
+router.use('/', teamRouter);
 
 export default router;

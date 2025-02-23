@@ -84,10 +84,14 @@ export const authLoginValidator = () => {
   ];
 };
 
-export const authRequestCodeValidator = () => {
+export const emailValidator = () => {
   return [
-    body('email').trim().notEmpty().isEmail().withMessage('Email is invalid')
+    body('email').trim().notEmpty().isEmail().withMessage('Invalid Email')
   ];
+};
+
+export const mongoIdValidator = () => {
+  return [body('id').notEmpty().isMongoId().withMessage('Invalid ID')];
 };
 
 export const authUpdatePasswordValidator = () => {
