@@ -2,7 +2,7 @@ import { FolderPlus, ListPlus, Users2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface EmptyStateProps {
-  type: 'projects' | 'tasks';
+  type: 'projects' | 'tasks' | 'team';
 }
 
 function EmptyState({ type }: EmptyStateProps) {

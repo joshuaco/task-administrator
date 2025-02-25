@@ -1,6 +1,7 @@
 import { authSchema, userSchema } from '@/schemas/auth';
 import { projectSchema } from '@/schemas/project';
 import { taskSchema, taskStatusSchema } from '@/schemas/task';
+import { teamMemberSchema } from '@/schemas/team';
 import { z } from 'zod';
 
 export type Project = z.infer<typeof projectSchema>;
@@ -22,3 +23,6 @@ export type ForgotPasswordForm = Pick<Auth, 'email'>;
 export type ResetPasswordForm = Pick<Auth, 'password' | 'password-confirm'>;
 
 export type User = z.infer<typeof userSchema>;
+
+export type TeamMember = z.infer<typeof teamMemberSchema>;
+export type TeamMemberForm = Pick<TeamMember, 'email'>;

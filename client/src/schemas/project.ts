@@ -6,7 +6,8 @@ export const projectSchema = z.object({
   projectName: z.string().nonempty(),
   clientName: z.string().nonempty(),
   description: z.string().nonempty(),
-  tasks: z.array(taskSchema)
+  tasks: z.array(taskSchema),
+  team: z.array(z.string())
 });
 
 export const projectsSchema = z.array(projectSchema);

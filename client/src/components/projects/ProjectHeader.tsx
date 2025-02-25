@@ -29,7 +29,7 @@ function ProjectHeader({ project, text }: ProjectHeaderProps) {
               <h1 className='text-2xl sm:text-3xl font-semibold tracking-tight'>
                 {project.projectName}
               </h1>
-              <p className='self-end text-lg text-gray-500 font-semibold'>
+              <p className='hidden sm:block self-end text-lg text-gray-500 font-semibold'>
                 {project.clientName}
               </p>
             </div>

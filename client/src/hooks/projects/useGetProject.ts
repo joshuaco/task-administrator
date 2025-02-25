@@ -9,8 +9,8 @@ export const useGetProject = () => {
   const { data: project, isError } = useQuery({
     queryKey: ['project', projectId],
     queryFn: () => getProjectById(projectId),
-    refetchOnWindowFocus: false
+    retry: 1
   });
 
-  return { project, isError };
+  return { project, isError, projectId };
 };
