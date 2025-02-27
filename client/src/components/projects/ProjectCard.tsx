@@ -34,7 +34,7 @@ function ProjectCard({ projects }: ProjectsProps) {
                 <div className='flex items-center space-x-4'>
                   <div className='flex items-center text-gray-500'>
                     <UsersRound className='h-5 w-5 mr-1' />
-                    <span>0</span>
+                    <span>{project.team.length}</span>
                   </div>
                   <div className='flex items-center text-gray-500'>
                     <SquareCheckBig className='h-5 w-5 mr-1' />

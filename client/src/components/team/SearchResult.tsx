@@ -9,7 +9,7 @@ interface SearchResultProps {
 }
 
 function SearchResult({ error, user, projectId }: SearchResultProps) {
-  const { addMember } = useAddMember();
+  const { addMember } = useAddMember({ projectId });
 
   const handleAddUserToProject = async () => {
     if (user) {
