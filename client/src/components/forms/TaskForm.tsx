@@ -18,12 +18,12 @@ function TaskForm({ onClose, task }: TaskFormProps) {
     formState: { errors, isSubmitting }
   } = useForm<TaskFormData>({ defaultValues: task });
 
-  const { createTaskMutation } = useCreateTask();
-  const { editTaskMutation } = useEditTask();
+  const { createTaskMutation } = useCreateTask({ projectId });
+  const { editTaskMutation } = useEditTask({ projectId, editTaskId });
 
   const onSubmit = async (data: TaskFormData) => {
     if (task) {
-      await editTaskMutation({ formData: data, projectId, taskId: editTaskId });
+      await editTaskMutation({ formData: data, projectId, taskId: task._id });
     } else {
       const taskData = { formData: data, projectId };
       await createTaskMutation(taskData);

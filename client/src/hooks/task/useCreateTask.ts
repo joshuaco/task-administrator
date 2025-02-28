@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useGetTask } from './useGetTask';
 import { createTask } from '@/api/task';
 import { toast } from 'sonner';
 
-export const useCreateTask = () => {
+export const useCreateTask = ({ projectId }: { projectId: string }) => {
   const navigate = useNavigate();
-  const { projectId } = useGetTask();
   const queryClient = useQueryClient();
 
   const { mutateAsync: createTaskMutation } = useMutation({

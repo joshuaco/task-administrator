@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useGetTask } from './useGetTask';
 import { updateTask } from '@/api/task';
 import { toast } from 'sonner';
 
-export const useEditTask = () => {
-  const { projectId, editTaskId } = useGetTask();
+interface Props {
+  projectId: string;
+  editTaskId: string;
+}
+
+export const useEditTask = ({ projectId, editTaskId }: Props) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
