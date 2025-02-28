@@ -1,12 +1,26 @@
+import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
 import { TeamMemberForm } from '@/types';
-import api from '@/lib/axios';
-import { teamMemberSchema } from '@/schemas/team';
+import { teamMemberSchema, teamMembersSchema } from '@/schemas/team';
 
 interface teamMemberProps {
   projectId: string;
   formData: TeamMemberForm;
   id: string;
+}
+
+export async function getProjectTeam({ projectId }: { projectId: string }) {
+  try {
+    const { data } = await api(`/projects/${projectId}/team`);
+    const response = teamMembersSchema.safeParse(data.team);
+    if (response.success) {
+      return response.data;
+    }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
 }
 
 export async function findUserByEmail({

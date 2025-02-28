@@ -15,7 +15,7 @@ function TeamMemberForm() {
   } = useForm<TeamMemberForm>();
 
   const { projectId } = useGetProject();
-  const { findUser, error, isPending, data } = useFindUser();
+  const { findUser, error, isPending, data: user } = useFindUser();
 
   const handleSearchUser = async (formData: TeamMemberForm) => {
     const data = { projectId, formData };
@@ -78,7 +78,7 @@ function TeamMemberForm() {
         </button>
       </form>
 
-      <SearchResult error={error} user={data} projectId={projectId} />
+      <SearchResult error={error} user={user} projectId={projectId} />
     </>
   );
 }

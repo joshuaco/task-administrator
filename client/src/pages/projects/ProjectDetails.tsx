@@ -1,9 +1,9 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useGetProject } from '@/hooks/projects/useGetProject';
-import { useGetTask } from '@/hooks/task/useGetTask';
-import { Plus } from 'lucide-react';
+import { Plus, UserCog2 } from 'lucide-react';
 import TaskList from '@/components/tasks/TaskList';
 import EmptyState from '@/components/empty/EmptyState';
+import TeamList from '@/components/team/TeamList';
 import TaskFormModal from '@/components/tasks/TaskFormModal';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
@@ -11,8 +11,7 @@ import TeamMemberModal from '@/components/team/TeamMemberModal';
 
 function ProjectDetails() {
   const navigate = useNavigate();
-  const { project, isError } = useGetProject();
-  const { taskData } = useGetTask();
+  const { project, isError, projectId } = useGetProject();
 
   if (isError) return <Navigate to='/404' />;
 
@@ -65,19 +64,27 @@ function ProjectDetails() {
                   <h2 className='text-lg font-semibold text-gray-900'>
                     Team Members
                   </h2>
-                  <button
-                    className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none'
-                    onClick={() => navigate('?addMember=true')}
-                  >
-                    <Plus className='h-5 w-5 mr-0 sm:mr-1' />
-                    <p className='hidden sm:block'>Add Member</p>
-                  </button>
+                  <div className='flex gap-2'>
+                    {project.team.length > 0 && (
+                      <button className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'>
+                        <UserCog2 className='h-5 w-5 mr-0 sm:mr-1' />
+                        <span className='hidden sm:block'>Manage</span>
+                      </button>
+                    )}
+                    <button
+                      className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none'
+                      onClick={() => navigate('?addMember=true')}
+                    >
+                      <Plus className='h-5 w-5 mr-0 sm:mr-1' />
+                      <p className='hidden sm:block'>
+                        Add <span className='lg:hidden'>Member</span>
+                      </p>
+                    </button>
+                  </div>
                 </div>
 
                 {project.team.length > 0 ? (
-                  <div className='space-y-4 flex justify-center items-center'>
-                    <p className='text-gray-600'>Team members here...</p>
-                  </div>
+                  <TeamList projectId={projectId} />
                 ) : (
                   <EmptyState type='team' />
                 )}
@@ -86,7 +93,7 @@ function ProjectDetails() {
           </div>
         </section>
 
-        <TaskFormModal task={taskData} />
+        <TaskFormModal />
         <TaskModalDetails />
         <TeamMemberModal />
       </>

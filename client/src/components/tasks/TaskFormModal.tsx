@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useGetTask } from '@/hooks/task/useGetTask';
 import { XIcon } from 'lucide-react';
 import { Fragment } from 'react';
 import {
@@ -8,14 +9,10 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
-import { Task } from '@/types';
 import TaskForm from '../forms/TaskForm';
 
-interface TaskFormModalProps {
-  task?: Task;
-}
-
-export default function TaskFormModal({ task }: TaskFormModalProps) {
+export default function TaskFormModal() {
+  const { taskData: task } = useGetTask();
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
