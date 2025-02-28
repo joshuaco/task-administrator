@@ -1,5 +1,4 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { useGetTask } from '@/hooks/task/useGetTask';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
@@ -17,8 +16,6 @@ function TasksView() {
     refetchOnWindowFocus: false
   });
 
-  const { taskData } = useGetTask();
-
   if (isError) return <Navigate to='/404' />;
 
   if (project)
@@ -29,7 +26,7 @@ function TasksView() {
           <TaskGroup tasks={project.tasks} />
         </section>
 
-        <TaskFormModal task={taskData} />
+        <TaskFormModal />
         <TaskModalDetails />
       </>
     );
