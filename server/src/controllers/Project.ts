@@ -19,7 +19,7 @@ class Project {
   static getAllProjects = async (req: Request, res: Response) => {
     try {
       const projects = await ProjectModel.find({
-        manager: { $in: req.user.id }
+        $or: [{ manager: { $in: req.user.id } }, { team: { $in: req.user.id } }]
       }).populate('tasks', {
         name: 1,
         description: 1,
@@ -44,7 +44,10 @@ class Project {
         return;
       }
 
-      if (project.manager.toString() !== req.user.id) {
+      if (
+        project.manager.toString() !== req.user.id &&
+        !project.team.includes(req.user.id)
+      ) {
         res
           .status(401)
           .json({ error: 'You are unauthorized to see this project' });
