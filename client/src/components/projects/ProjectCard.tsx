@@ -1,13 +1,14 @@
 import { SquareCheckBig, UsersRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Project } from '@/types';
+import { Project, User } from '@/types';
 import ProjectDropdown from './ProjectDropdown';
 
 interface ProjectsProps {
   projects: Project[];
+  user: User;
 }
 
-function ProjectCard({ projects }: ProjectsProps) {
+function ProjectCard({ projects, user }: ProjectsProps) {
   return (
     <>
       <ul role='list' className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
@@ -24,7 +25,7 @@ function ProjectCard({ projects }: ProjectsProps) {
                 >
                   {project.projectName}
                 </Link>
-                <ProjectDropdown project={project} />
+                <ProjectDropdown project={project} user={user} />
               </div>
               <p className='mt-2 text-gray-500 font-medium'>
                 {project.clientName}

@@ -1,5 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '@/hooks/auth/useAuth';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
@@ -15,14 +16,15 @@ function TasksView() {
     queryFn: () => getProjectById(projectId),
     refetchOnWindowFocus: false
   });
+  const { data: user } = useAuth();
 
   if (isError) return <Navigate to='/404' />;
 
-  if (project)
+  if (project && user)
     return (
       <>
         <section className='mt-5 space-y-6'>
-          <ProjectHeader project={project} text='Back to Project' />
+          <ProjectHeader project={project} user={user} text='Back to Project' />
           <TaskGroup tasks={project.tasks} />
         </section>
 

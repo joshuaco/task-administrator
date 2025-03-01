@@ -41,7 +41,9 @@ function Home() {
             ))}
           </div>
         )}
-        {!isLoading && projects && <ProjectCard projects={projects} />}
+        {!isLoading && projects && user && (
+          <ProjectCard projects={projects} user={user} />
+        )}
         {!isLoading && projects?.length === 0 && <EmptyState type='projects' />}
       </section>
     </>

@@ -1,6 +1,6 @@
 import { useProjectMutation } from '@/hooks/projects/useProjectMutation';
 import { useState } from 'react';
-import { Project } from '@/types';
+import { Project, User } from '@/types';
 import {
   Menu,
   MenuButton,
@@ -11,15 +11,18 @@ import {
 import { EllipsisVertical, Eye, Pencil, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
+import { isManager } from '@/utils/policies';
 import DeleteModal from '../modals/DeleteModal';
 
 interface ProjectDropdownProps {
   project: Project;
+  user: User;
 }
 
-function ProjectDropdown({ project }: ProjectDropdownProps) {
+function ProjectDropdown({ project, user }: ProjectDropdownProps) {
   const [openModal, setOpenModal] = useState(false);
   const { deleteProjectMutation } = useProjectMutation({});
+
   return (
     <>
       <div className='flex shrink-0 gap-x-6'>
@@ -47,25 +50,29 @@ function ProjectDropdown({ project }: ProjectDropdownProps) {
                   View Project
                 </Link>
               </MenuItem>
-              <MenuItem>
-                <Link
-                  to={`/projects/${project._id}/edit`}
-                  className='flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100'
-                >
-                  <Pencil className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
-                  Edit Project
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <button
-                  type='button'
-                  className='flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100'
-                  onClick={() => setOpenModal(true)}
-                >
-                  <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
-                  Delete Project
-                </button>
-              </MenuItem>
+              {isManager(project.manager, user._id) && (
+                <>
+                  <MenuItem>
+                    <Link
+                      to={`/projects/${project._id}/edit`}
+                      className='flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100'
+                    >
+                      <Pencil className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
+                      Edit Project
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <button
+                      type='button'
+                      className='flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100'
+                      onClick={() => setOpenModal(true)}
+                    >
+                      <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
+                      Delete Project
+                    </button>
+                  </MenuItem>
+                </>
+              )}
             </MenuItems>
           </Transition>
         </Menu>

@@ -1,6 +1,8 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useGetProject } from '@/hooks/projects/useGetProject';
+import { useAuth } from '@/hooks/auth/useAuth';
 import { Plus, UserCog2 } from 'lucide-react';
+import { isManager } from '@/utils/policies';
 import TaskList from '@/components/tasks/TaskList';
 import EmptyState from '@/components/empty/EmptyState';
 import TeamList from '@/components/team/TeamList';
@@ -12,14 +14,19 @@ import TeamMemberModal from '@/components/team/TeamMemberModal';
 function ProjectDetails() {
   const navigate = useNavigate();
   const { project, isError, projectId } = useGetProject();
+  const { data: user } = useAuth();
 
   if (isError) return <Navigate to='/404' />;
 
-  if (project)
+  if (project && user)
     return (
       <>
         <section className='mt-5 space-y-6'>
-          <ProjectHeader project={project} text='Back to Projects' />
+          <ProjectHeader
+            project={project}
+            user={user}
+            text='Back to Projects'
+          />
 
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
             <div className='lg:col-span-2'>
@@ -39,14 +46,16 @@ function ProjectDetails() {
                     Tasks ({project.tasks.length})
                   </Link>
 
-                  <button
-                    className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 
+                  {isManager(project.manager, user._id) && (
+                    <button
+                      className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-600 
                     hover:bg-fuchsia-700 focus:outline-none'
-                    onClick={() => navigate('?newTask=true')}
-                  >
-                    <Plus className='h-5 w-5 mr-0 sm:mr-1' />
-                    <p className='hidden sm:block'>Add Task</p>
-                  </button>
+                      onClick={() => navigate('?newTask=true')}
+                    >
+                      <Plus className='h-5 w-5 mr-0 sm:mr-1' />
+                      <p className='hidden sm:block'>Add Task</p>
+                    </button>
+                  )}
                 </div>
                 <div>
                   {project.tasks.length > 0 ? (
@@ -64,26 +73,28 @@ function ProjectDetails() {
                   <h2 className='text-lg font-semibold text-gray-900'>
                     Team Members
                   </h2>
-                  <div className='flex gap-2'>
-                    {project.team.length > 0 && (
+                  {isManager(project.manager, user._id) && (
+                    <div className='flex gap-2'>
+                      {project.team.length > 0 && (
+                        <button
+                          className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'
+                          onClick={() => navigate('?management=true')}
+                        >
+                          <UserCog2 className='h-5 w-5 mr-0 sm:mr-1' />
+                          <span className='hidden sm:block'>Manage</span>
+                        </button>
+                      )}
                       <button
-                        className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'
-                        onClick={() => navigate('?management=true')}
+                        className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none'
+                        onClick={() => navigate('?addMember=true')}
                       >
-                        <UserCog2 className='h-5 w-5 mr-0 sm:mr-1' />
-                        <span className='hidden sm:block'>Manage</span>
+                        <Plus className='h-5 w-5 mr-0 sm:mr-1' />
+                        <p className='hidden sm:block'>
+                          Add <span className='lg:hidden'>Member</span>
+                        </p>
                       </button>
-                    )}
-                    <button
-                      className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none'
-                      onClick={() => navigate('?addMember=true')}
-                    >
-                      <Plus className='h-5 w-5 mr-0 sm:mr-1' />
-                      <p className='hidden sm:block'>
-                        Add <span className='lg:hidden'>Member</span>
-                      </p>
-                    </button>
-                  </div>
+                    </div>
+                  )}
                 </div>
 
                 {project.team.length > 0 ? (
