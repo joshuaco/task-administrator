@@ -9,6 +9,7 @@ import { XIcon } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 import TeamMemberForm from './TeamMemberForm';
+import TeamMemberManagement from './TeamMemberManagement';
 
 function TeamMemberModal() {
   const location = useLocation();
@@ -16,7 +17,8 @@ function TeamMemberModal() {
 
   const queryParams = new URLSearchParams(location.search);
   const addMember = queryParams.get('addMember');
-  const show = addMember ? true : false;
+  const management = queryParams.get('management');
+  const show = !!addMember || !!management;
 
   const closeModal = () => {
     navigate(location.pathname, { replace: true });
@@ -55,7 +57,7 @@ function TeamMemberModal() {
                       as='h3'
                       className='text-xl font-semibold text-gray-900 mb-2'
                     >
-                      Add Team Member
+                      {management ? 'Manage Team Members' : 'Add Team Member'}
                     </DialogTitle>
                     <button
                       className='p-1 sm:p-2 rounded-md hover:bg-gray-100 focus:outline-none'
@@ -64,7 +66,8 @@ function TeamMemberModal() {
                       <XIcon className='h-6 w-6 text-gray-500' />
                     </button>
                   </div>
-                  <TeamMemberForm />
+                  {management && <TeamMemberManagement onClose={closeModal} />}
+                  {addMember && <TeamMemberForm />}
                 </DialogPanel>
               </TransitionChild>
             </div>

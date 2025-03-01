@@ -57,3 +57,17 @@ export async function addUserToProject({
     }
   }
 }
+
+export async function removeUserToProject({
+  projectId,
+  id
+}: Pick<teamMemberProps, 'projectId' | 'id'>) {
+  try {
+    const { data } = await api.delete(`/projects/${projectId}/team/${id}`);
+    return data.message;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}

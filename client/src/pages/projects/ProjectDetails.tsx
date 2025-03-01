@@ -66,7 +66,10 @@ function ProjectDetails() {
                   </h2>
                   <div className='flex gap-2'>
                     {project.team.length > 0 && (
-                      <button className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'>
+                      <button
+                        className='inline-flex items-center px-1 sm:px-3 py-1 sm:py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'
+                        onClick={() => navigate('?management=true')}
+                      >
                         <UserCog2 className='h-5 w-5 mr-0 sm:mr-1' />
                         <span className='hidden sm:block'>Manage</span>
                       </button>
