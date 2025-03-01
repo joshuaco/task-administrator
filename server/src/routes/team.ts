@@ -4,7 +4,8 @@ import { projectExists } from '../middlewares/project';
 import {
   emailValidator,
   handleErrors,
-  mongoIdValidator
+  mongoIdValidator,
+  userIDValidator
 } from '../middlewares/validators';
 
 const router = Router();
@@ -28,8 +29,8 @@ router.post(
 );
 
 router.delete(
-  '/:projectID/team',
-  mongoIdValidator(),
+  '/:projectID/team/:userID',
+  userIDValidator(),
   handleErrors,
   TeamController.deleteMemberById
 );

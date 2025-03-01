@@ -57,10 +57,10 @@ class Team {
 
   static deleteMemberById = async (req: Request, res: Response) => {
     try {
-      const { id } = req.body;
+      const { userID: id } = req.params;
 
       if (!req.project.team.some((team) => team.toString() === id)) {
-        res.status(409).json({ error: 'User does not exists in the project' });
+        res.status(404).json({ error: 'User dont found' });
         return;
       }
 

@@ -38,6 +38,10 @@ export const taskIDValidator = () => {
   return [param('taskID').isMongoId().withMessage('Invalid ID')];
 };
 
+export const userIDValidator = () => {
+  return [param('userID').isMongoId().withMessage('Invalid ID')];
+};
+
 export const taskValidator = () => {
   return [
     body('name').trim().notEmpty().withMessage('Task name is required'),
