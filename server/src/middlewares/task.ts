@@ -32,3 +32,29 @@ export const taskExists = async (
     res.status(400).json({ message: error.message });
   }
 };
+
+export const taskBelongToProject = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.task.project.toString() !== req.project.id.toString()) {
+    const error = new Error('Invalid Action');
+    res.status(400).json({ error: error.message });
+    return;
+  }
+  next();
+};
+
+export const hasAuthorization = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.user.id.toString() !== req.project.manager.toString()) {
+    const error = new Error('Invalid Action');
+    res.status(400).json({ error: error.message });
+    return;
+  }
+  next();
+};

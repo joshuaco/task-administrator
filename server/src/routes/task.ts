@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import TaskController from '../controllers/Task';
-import { taskExists } from '../middlewares/task';
+import {
+  hasAuthorization,
+  taskBelongToProject,
+  taskExists
+} from '../middlewares/task';
 import { projectExists } from '../middlewares/project';
 import {
   handleErrors,
@@ -12,9 +16,12 @@ import {
 const router = Router();
 
 router.param('projectID', projectExists);
+router.param('taskID', taskExists);
+router.param('taskID', taskBelongToProject);
 
 router.post(
   '/:projectID/tasks',
+  hasAuthorization,
   taskValidator(),
   handleErrors,
   TaskController.createTask
@@ -26,16 +33,15 @@ router.get(
   '/:projectID/tasks/:taskID',
   taskIDValidator(),
   handleErrors,
-  taskExists,
   TaskController.getTaskById
 );
 
 router.put(
   '/:projectID/tasks/:taskID',
+  hasAuthorization,
   taskIDValidator(),
   taskValidator(),
   handleErrors,
-  taskExists,
   TaskController.updateTask
 );
 
@@ -44,15 +50,14 @@ router.patch(
   taskIDValidator(),
   taskStatusValidator(),
   handleErrors,
-  taskExists,
   TaskController.updateStatus
 );
 
 router.delete(
   '/:projectID/tasks/:taskID',
+  hasAuthorization,
   taskIDValidator(),
   handleErrors,
-  taskExists,
   TaskController.deleteTask
 );
 
