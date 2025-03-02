@@ -11,6 +11,8 @@ import TaskCard from './TaskCard';
 
 interface TaskGroupProps {
   tasks: Task[];
+  userId: string;
+  managerId: string;
 }
 
 type GroupedTasks = {
@@ -49,7 +51,7 @@ const initialStatusGroups: GroupedTasks = {
   }
 };
 
-function TaskGroup({ tasks }: TaskGroupProps) {
+function TaskGroup({ tasks, userId, managerId }: TaskGroupProps) {
   const groupedTasks = tasks.reduce(
     (acc, task) => {
       const currentGroup = acc[task.status] ? acc[task.status].tasks : [];
@@ -90,7 +92,14 @@ function TaskGroup({ tasks }: TaskGroupProps) {
                     </p>
                   </li>
                 ) : (
-                  tasks.map((task) => <TaskCard key={task._id} task={task} />)
+                  tasks.map((task) => (
+                    <TaskCard
+                      key={task._id}
+                      task={task}
+                      userId={userId}
+                      managerId={managerId}
+                    />
+                  ))
                 )}
               </ul>
             </div>

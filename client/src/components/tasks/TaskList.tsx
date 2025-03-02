@@ -5,12 +5,16 @@ import {
   statusBorderColors
 } from '@/utils/status';
 import TaskDropdown from './TaskDropdown';
+import { useNavigate } from 'react-router-dom';
 
 interface TaskListProps {
   tasks: Task[];
+  userId: string;
+  managerId: string;
 }
 
-function TaskList({ tasks }: TaskListProps) {
+function TaskList({ tasks, userId, managerId }: TaskListProps) {
+  const navigate = useNavigate();
   const sortedTasks = tasks.sort((a, b) => {
     const statusOrder = {
       pending: 0,
@@ -22,6 +26,10 @@ function TaskList({ tasks }: TaskListProps) {
     return statusOrder[a.status] - statusOrder[b.status];
   });
 
+  const handleViewTask = (taskId: string) => {
+    navigate(`${location.pathname}?viewTask=${taskId}`);
+  };
+
   return (
     <div className='space-y-4'>
       {sortedTasks.map((task) => (
@@ -32,7 +40,12 @@ function TaskList({ tasks }: TaskListProps) {
           } sm:border-t-0`}
         >
           <div>
-            <h3 className='font-medium text-gray-900'>{task.name}</h3>
+            <button
+              className='font-medium text-gray-900'
+              onClick={() => handleViewTask(task._id)}
+            >
+              {task.name}
+            </button>
           </div>
           <div className='flex items-center gap-x-2'>
             <span
@@ -42,7 +55,7 @@ function TaskList({ tasks }: TaskListProps) {
             >
               {statusTitle(task.status)}
             </span>
-            <TaskDropdown task={task} />
+            <TaskDropdown task={task} userId={userId} managerId={managerId} />
           </div>
         </div>
       ))}

@@ -59,7 +59,11 @@ function ProjectDetails() {
                 </div>
                 <div>
                   {project.tasks.length > 0 ? (
-                    <TaskList tasks={project.tasks} />
+                    <TaskList
+                      tasks={project.tasks}
+                      userId={user._id}
+                      managerId={project.manager}
+                    />
                   ) : (
                     <EmptyState type='tasks' />
                   )}

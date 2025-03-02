@@ -3,6 +3,7 @@ import { useDeleteTask } from '@/hooks/task/useDeleteTask';
 import { useGetTask } from '@/hooks/task/useGetTask';
 import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
+import { isManager } from '@/utils/policies';
 import { Task } from '@/types';
 import {
   Menu,
@@ -14,9 +15,11 @@ import {
 
 interface TaskDropdownProps {
   task: Task;
+  userId: string;
+  managerId: string;
 }
 
-function TaskDropdown({ task }: TaskDropdownProps) {
+function TaskDropdown({ task, userId, managerId }: TaskDropdownProps) {
   const navigate = useNavigate();
   const { projectId } = useGetTask();
   const { deleteTaskMutation } = useDeleteTask();
@@ -64,26 +67,30 @@ function TaskDropdown({ task }: TaskDropdownProps) {
                   View Task
                 </button>
               </MenuItem>
-              <MenuItem>
-                <button
-                  type='button'
-                  className={`group flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100`}
-                  onClick={handleEditTask}
-                >
-                  <Pencil className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
-                  Edit Task
-                </button>
-              </MenuItem>
-              <MenuItem>
-                <button
-                  type='button'
-                  className={`group flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100`}
-                  onClick={handleDeleteTask}
-                >
-                  <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
-                  Delete Task
-                </button>
-              </MenuItem>
+              {isManager(managerId, userId) && (
+                <>
+                  <MenuItem>
+                    <button
+                      type='button'
+                      className={`group flex items-center px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100`}
+                      onClick={handleEditTask}
+                    >
+                      <Pencil className='h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-500' />
+                      Edit Task
+                    </button>
+                  </MenuItem>
+                  <MenuItem>
+                    <button
+                      type='button'
+                      className={`group flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100`}
+                      onClick={handleDeleteTask}
+                    >
+                      <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
+                      Delete Task
+                    </button>
+                  </MenuItem>
+                </>
+              )}
             </MenuItems>
           </Transition>
         </Menu>

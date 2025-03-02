@@ -3,9 +3,11 @@ import TaskDropdown from './TaskDropdown';
 
 interface TaskCardProps {
   task: Task;
+  userId: string;
+  managerId: string;
 }
 
-function TaskCard({ task }: TaskCardProps) {
+function TaskCard({ task, userId, managerId }: TaskCardProps) {
   return (
     <li
       className='p-3 bg-gray-50 rounded-lg hover:bg-gray-100 
@@ -24,7 +26,7 @@ function TaskCard({ task }: TaskCardProps) {
         )}
       </div>
       <div className='mt-1'>
-        <TaskDropdown task={task} />
+        <TaskDropdown task={task} userId={userId} managerId={managerId} />
       </div>
     </li>
   );
