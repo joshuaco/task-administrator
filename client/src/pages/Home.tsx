@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { getFullDate } from '@/utils/date';
-import { useAuth } from '@/hooks/auth/useAuth';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
 import { useGetProjects } from '@/hooks/projects/useGetProjects';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectSkeleton from '@/components/projects/ProjectCardSkeleton';
@@ -9,7 +9,7 @@ import EmptyState from '@/components/empty/EmptyState';
 
 function Home() {
   const { projects, isLoading } = useGetProjects();
-  const { data: user } = useAuth();
+  const { user } = useAuthContext();
 
   return (
     <>

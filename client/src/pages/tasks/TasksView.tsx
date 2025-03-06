@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '@/hooks/auth/useAuth';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
 import { getProjectById } from '@/api/project';
 import ProjectHeader from '@/components/projects/ProjectHeader';
 import TaskModalDetails from '@/components/tasks/TaskModalDetails';
@@ -16,7 +16,8 @@ function TasksView() {
     queryFn: () => getProjectById(projectId),
     refetchOnWindowFocus: false
   });
-  const { data: user } = useAuth();
+
+  const { user } = useAuthContext();
 
   if (isError) return <Navigate to='/404' />;
 

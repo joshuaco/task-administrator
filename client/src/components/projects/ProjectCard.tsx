@@ -34,7 +34,7 @@ function ProjectCard({ projects, user }: ProjectsProps) {
               <p className='mt-1 text-gray-600 text-sm sm:text-base line-clamp-2 min-h-[2.5rem]'>
                 {project.description}
               </p>
-              <div className='flex items-center justify-between mt-auto pt-4'>
+              <div className='flex items-center justify-between mt-auto pt-1 sm:pt-2'>
                 <div className='flex items-center space-x-4'>
                   <div className='flex items-center text-gray-500'>
                     <UsersRound className='h-5 w-5 mr-1' />

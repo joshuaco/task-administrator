@@ -1,6 +1,6 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useGetProject } from '@/hooks/projects/useGetProject';
-import { useAuth } from '@/hooks/auth/useAuth';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
 import { Plus, UserCog2 } from 'lucide-react';
 import { isManager } from '@/utils/policies';
 import TaskList from '@/components/tasks/TaskList';
@@ -14,7 +14,7 @@ import TeamMemberModal from '@/components/team/TeamMemberModal';
 function ProjectDetails() {
   const navigate = useNavigate();
   const { project, isError, projectId } = useGetProject();
-  const { data: user } = useAuth();
+  const { user } = useAuthContext();
 
   if (isError) return <Navigate to='/404' />;
 
