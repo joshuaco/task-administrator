@@ -2,13 +2,15 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { CircleUserRound, Settings, LogOut } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
 
 function ProfileDropdown() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { logout } = useAuthContext();
 
   const handleSignOut = () => {
-    localStorage.removeItem('AUTH_TOKEN');
+    logout();
     queryClient.removeQueries({ queryKey: ['user'] });
     queryClient.removeQueries({ queryKey: ['projects'] });
     navigate('/login');
