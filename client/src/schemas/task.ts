@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { userSchema } from './auth';
 
 export const taskStatusSchema = z.enum([
   'pending',
@@ -30,6 +31,7 @@ export const taskSchema = z.object({
   description: z.string().nonempty(),
   project: z.string().nonempty().or(projectTaskSchema),
   status: taskStatusSchema,
+  updatedBy: userSchema.or(z.null()).optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional()
 });

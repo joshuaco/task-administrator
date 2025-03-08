@@ -18,7 +18,7 @@ export const useGetTask = () => {
   } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => getTaskById({ projectId, taskId }),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     retry: false,
     enabled: !!taskId
   });

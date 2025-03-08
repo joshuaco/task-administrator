@@ -104,16 +104,23 @@ export default function TaskModalDetails() {
                         Details
                       </h4>
                       <div className='space-y-3'>
-                        <div className='flex items-center text-gray-600'>
-                          <User className='h-5 w-5 mr-2' />
-                          <span>Assigned to John Doe and 3 others</span>
-                        </div>
+                        {taskData.updatedBy && (
+                          <div className='flex items-center text-gray-600'>
+                            <User className='h-5 w-5 mr-2' />
+                            <span>
+                              Task updated by{' '}
+                              <span className='font-medium'>
+                                {taskData.updatedBy.name.split(' ')[0]}
+                              </span>
+                            </span>
+                          </div>
+                        )}
                         <div className='flex items-center text-gray-600'>
                           <Bookmark className='h-5 w-5 mr-2' />
                           <label>Status: </label>
                           <Select
                             name='status'
-                            defaultValue={taskData.status}
+                            value={taskData.status}
                             className={
                               'ml-2 border data-[hover]:shadow data-[focus]:bg-blue-100 p-0.5'
                             }
