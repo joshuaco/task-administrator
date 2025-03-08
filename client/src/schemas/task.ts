@@ -35,8 +35,3 @@ export const taskSchema = z.object({
   createdAt: z.string().optional(),
   updatedAt: z.string().optional()
 });
-
-export const taskResponseSchema = z.object({
-  task: taskSchema,
-  message: z.string()
-});

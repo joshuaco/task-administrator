@@ -1,7 +1,7 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
+import { taskSchema } from '@/schemas/task';
 import { Project, Task, TaskFormData } from '@/types';
-import { taskResponseSchema, taskSchema } from '@/schemas/task';
 
 interface TaskParams {
   formData: TaskFormData;
@@ -17,11 +17,7 @@ export const createTask = async ({
   try {
     const url = `/projects/${projectId}/tasks`;
     const { data } = await api.post(url, formData);
-    const response = taskResponseSchema.safeParse(data);
-    if (!response.success) {
-      throw new Error(response.error.message);
-    }
-    return response.data.message;
+    return data.message;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.error);
@@ -56,11 +52,7 @@ export const updateTask = async ({
   try {
     const url = `/projects/${projectId}/tasks/${taskId}`;
     const { data } = await api.put(url, formData);
-    const response = taskResponseSchema.safeParse(data);
-    if (!response.success) {
-      throw new Error(response.error.message);
-    }
-    return response.data.message;
+    return data.message;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.error);
