@@ -28,10 +28,15 @@ class Task {
 
   static getTaskById = async (req: Request, res: Response) => {
     try {
-      const task = await TaskModel.findOne({
-        _id: req.params.taskID,
-        project: req.project.id
-      }).populate('project', { projectName: 1, clientName: 1 });
+      const task = await TaskModel.findById(req.task.id)
+        .populate({
+          path: 'project',
+          select: 'projectName clientName'
+        })
+        .populate({
+          path: 'updatedBy',
+          select: 'name email'
+        });
 
       res.status(200).json({ task });
     } catch (error) {
@@ -70,9 +75,12 @@ class Task {
 
   static updateStatus = async (req: Request, res: Response) => {
     try {
-      await TaskModel.findByIdAndUpdate(req.params.taskID, req.body, {
-        new: true
-      });
+      const { status } = req.body;
+
+      req.task.status = status;
+      req.task.updatedBy = req.user.id;
+
+      await req.task.save();
       res.status(200).json({ message: 'Task status updated successfully' });
     } catch (error) {
       res.status(400).json({ message: error.message });
