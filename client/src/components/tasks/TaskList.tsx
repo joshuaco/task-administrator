@@ -41,7 +41,7 @@ function TaskList({ tasks, userId, managerId }: TaskListProps) {
         >
           <div>
             <button
-              className='font-medium text-gray-900'
+              className='font-medium text-gray-900 text-left'
               onClick={() => handleViewTask(task._id)}
             >
               {task.name}

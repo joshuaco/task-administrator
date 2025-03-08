@@ -1,4 +1,4 @@
-import { Bookmark, Calendar, Clock, User, X } from 'lucide-react';
+import { Bookmark, Calendar, Clock, X } from 'lucide-react';
 import { useUpdateStatus } from '@/hooks/task/useUpdateStatus';
 import { useGetTask } from '@/hooks/task/useGetTask';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -104,17 +104,6 @@ export default function TaskModalDetails() {
                         Details
                       </h4>
                       <div className='space-y-3'>
-                        {taskData.updatedBy && (
-                          <div className='flex items-center text-gray-600'>
-                            <User className='h-5 w-5 mr-2' />
-                            <span>
-                              Task updated by{' '}
-                              <span className='font-medium'>
-                                {taskData.updatedBy.name.split(' ')[0]}
-                              </span>
-                            </span>
-                          </div>
-                        )}
                         <div className='flex items-center text-gray-600'>
                           <Bookmark className='h-5 w-5 mr-2' />
                           <label>Status: </label>
@@ -135,7 +124,9 @@ export default function TaskModalDetails() {
                         </div>
                         <div className='flex items-center text-gray-600'>
                           <Calendar className='h-5 w-5 mr-2' />
-                          <span>Due: {new Date().toLocaleDateString()}</span>
+                          <span>
+                            Due Date: {new Date().toLocaleDateString()}
+                          </span>
                         </div>
                       </div>
                     </div>
