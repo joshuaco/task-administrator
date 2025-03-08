@@ -27,7 +27,7 @@ function TasksView() {
         <section className='mt-5 space-y-6'>
           <ProjectHeader project={project} user={user} text='Back to Project' />
           <TaskGroup
-            tasks={project.tasks}
+            tasks={project.tasks.filter((task) => typeof task !== 'string')}
             userId={user._id}
             managerId={project.manager}
           />

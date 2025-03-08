@@ -60,7 +60,9 @@ function ProjectDetails() {
                 <div>
                   {project.tasks.length > 0 ? (
                     <TaskList
-                      tasks={project.tasks}
+                      tasks={project.tasks.filter(
+                        (task) => typeof task !== 'string'
+                      )}
                       userId={user._id}
                       managerId={project.manager}
                     />
