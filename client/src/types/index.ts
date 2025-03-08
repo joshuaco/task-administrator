@@ -1,6 +1,10 @@
 import { authSchema, userSchema } from '@/schemas/auth';
 import { projectSchema } from '@/schemas/project';
-import { taskSchema, taskStatusSchema } from '@/schemas/task';
+import {
+  taskSchema,
+  taskStatusSchema,
+  taskActivitySchema
+} from '@/schemas/task';
 import { teamMemberSchema } from '@/schemas/team';
 import { z } from 'zod';
 
@@ -12,6 +16,7 @@ export type ProjectFormData = Pick<
 export type Task = z.infer<typeof taskSchema>;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
 export type TaskFormData = Pick<Task, 'name' | 'description'>;
+export type TaskActivity = z.infer<typeof taskActivitySchema>;
 
 export type Auth = z.infer<typeof authSchema>;
 export type LoginFormData = Pick<Auth, 'email' | 'password'>;

@@ -34,7 +34,7 @@ class Task {
           select: 'projectName clientName'
         })
         .populate({
-          path: 'updatedBy',
+          path: 'updatedBy.user',
           select: 'name email'
         });
 
@@ -74,10 +74,12 @@ class Task {
   static updateStatus = async (req: Request, res: Response) => {
     try {
       const { status } = req.body;
-
+      const data = {
+        user: req.user.id,
+        status
+      };
       req.task.status = status;
-      req.task.updatedBy = req.user.id;
-
+      req.task.updatedBy.push(data);
       await req.task.save();
       res.status(200).json({ message: 'Task status updated successfully' });
     } catch (error) {

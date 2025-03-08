@@ -15,7 +15,10 @@ export type TaskType = Document & {
   description: string;
   project: ObjectId;
   status: TaskStatus;
-  updatedBy: ObjectId;
+  updatedBy: {
+    user: ObjectId;
+    status: TaskStatus;
+  }[];
 };
 
 const TaskSchema = new mongoose.Schema(
@@ -28,7 +31,16 @@ const TaskSchema = new mongoose.Schema(
       enum: Object.values(taskStatus),
       default: taskStatus.PENDING
     },
-    updatedBy: { type: mongoose.Types.ObjectId, ref: 'User', default: null }
+    updatedBy: [
+      {
+        user: { type: mongoose.Types.ObjectId, ref: 'User', default: null },
+        status: {
+          type: String,
+          enum: Object.values(taskStatus),
+          default: taskStatus.PENDING
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

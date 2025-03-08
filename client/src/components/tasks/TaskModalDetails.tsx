@@ -15,6 +15,7 @@ import {
   TransitionChild
 } from '@headlessui/react';
 import { TaskStatus } from '@/types';
+import TaskStatusLog from './TaskStatusLog';
 
 export default function TaskModalDetails() {
   const navigate = useNavigate();
@@ -98,8 +99,8 @@ export default function TaskModalDetails() {
                     </p>
                   </div>
 
-                  <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-                    <div className='space-y-2'>
+                  <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
+                    <div className='space-y-3'>
                       <h4 className='text-sm font-medium text-gray-700'>
                         Details
                       </h4>
@@ -151,6 +152,15 @@ export default function TaskModalDetails() {
                       </div>
                     </div>
                   </div>
+                  {/* Add Note Form */}
+
+                  {/* Activity Log */}
+                  <div className='border-t border-gray-200 pt-2'>
+                    <div className='max-h-60 overflow-y-auto pr-2'>
+                      <TaskStatusLog activities={taskData.updatedBy} />
+                    </div>
+                  </div>
+
                   <div className='px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
                     <button
                       type='button'
