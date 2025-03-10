@@ -24,12 +24,12 @@ export const taskExists = async (
     }
 
     if (req.task.project.toString() !== req.project.id.toString()) {
-      res.status(403).json({ error: 'Task not found' });
+      res.status(404).json({ error: 'Task not found' });
       return;
     }
     next();
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: 'Invalid task ID' });
   }
 };
 

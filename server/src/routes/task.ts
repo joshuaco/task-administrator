@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import noteRouter from './note';
 import TaskController from '../controllers/Task';
 import {
   hasAuthorization,
@@ -59,6 +60,13 @@ router.delete(
   taskIDValidator(),
   handleErrors,
   TaskController.deleteTask
+);
+
+router.use(
+  '/:projectID/tasks/:taskID',
+  taskIDValidator(),
+  handleErrors,
+  noteRouter
 );
 
 export default router;

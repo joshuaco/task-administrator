@@ -115,3 +115,9 @@ export const authUpdatePasswordValidator = () => {
     })
   ];
 };
+
+export const noteContentValidator = () => {
+  return [
+    body('content').trim().notEmpty().withMessage('Note content is required')
+  ];
+};
