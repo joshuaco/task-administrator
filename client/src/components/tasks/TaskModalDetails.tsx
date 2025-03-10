@@ -58,7 +58,7 @@ export default function TaskModalDetails() {
           </TransitionChild>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-2 text-center'>
               <TransitionChild
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -156,9 +156,7 @@ export default function TaskModalDetails() {
 
                   {/* Activity Log */}
                   <div className='border-t border-gray-200 pt-2'>
-                    <div className='max-h-60 overflow-y-auto pr-2'>
-                      <TaskStatusLog activities={taskData.updatedBy} />
-                    </div>
+                    <TaskStatusLog activities={taskData.updatedBy} />
                   </div>
 
                   <div className='px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
