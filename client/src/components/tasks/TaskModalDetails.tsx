@@ -4,7 +4,7 @@ import { useGetTask } from '@/hooks/task/useGetTask';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { taskStatus } from '@/utils/status';
 import { formatDate } from '@/utils/date';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -21,7 +21,7 @@ export default function TaskModalDetails() {
   const navigate = useNavigate();
   const { viewTaskId, taskData, isError, error, projectId } = useGetTask();
   const { updateStatusMutation } = useUpdateStatus();
-  const show = viewTaskId ? true : false;
+  const show = Boolean(viewTaskId);
 
   const handleClose = () => {
     navigate(location.pathname, { replace: true });
@@ -36,12 +36,28 @@ export default function TaskModalDetails() {
     updateStatusMutation(data);
   };
 
+  const mergedActivities = useMemo(() => {
+    const updatedByActivities = taskData?.updatedBy || [];
+    const noteActivities = (taskData?.notes || []).map((note) => ({
+      _id: note._id,
+      user: note.createdBy,
+      createdAt: note.createdAt,
+      note: note
+    }));
+    const activities = [...updatedByActivities, ...noteActivities];
+    activities.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    return activities;
+  }, [taskData?.updatedBy, taskData?.notes]);
+
   if (isError) {
     toast.error(error?.message, { id: 'task-modal-error' });
     return <Navigate to={`/projects/${projectId}`} />;
   }
 
-  if (taskData)
+  if (taskData) {
     return (
       <Transition appear show={show} as={Fragment}>
         <Dialog as='div' className='relative z-10' onClose={handleClose}>
@@ -152,14 +168,13 @@ export default function TaskModalDetails() {
                       </div>
                     </div>
                   </div>
-                  {/* Add Note Form */}
 
                   {/* Activity Log */}
                   <div className='border-t border-gray-200 pt-2'>
-                    <TaskStatusLog activities={taskData.updatedBy} />
+                    <TaskStatusLog activities={mergedActivities} />
                   </div>
 
-                  <div className='px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
+                  <div className='px-4 pt-3 sm:flex sm:flex-row-reverse sm:px-6'>
                     <button
                       type='button'
                       onClick={handleClose}
@@ -176,4 +191,5 @@ export default function TaskModalDetails() {
         </Dialog>
       </Transition>
     );
+  }
 }

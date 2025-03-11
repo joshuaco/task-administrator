@@ -36,6 +36,13 @@ class Task {
         .populate({
           path: 'updatedBy.user',
           select: 'name email'
+        })
+        .populate({
+          path: 'notes',
+          populate: {
+            path: 'createdBy',
+            select: 'name email'
+          }
         });
 
       res.status(200).json({ task });
@@ -76,7 +83,8 @@ class Task {
       const { status } = req.body;
       const data = {
         user: req.user.id,
-        status
+        status,
+        createdAt: new Date()
       };
       req.task.status = status;
       req.task.updatedBy.push(data);

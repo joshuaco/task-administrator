@@ -3,7 +3,8 @@ import { projectSchema } from '@/schemas/project';
 import {
   taskSchema,
   taskStatusSchema,
-  taskActivitySchema
+  taskActivitySchema,
+  taskNoteSchema
 } from '@/schemas/task';
 import { teamMemberSchema } from '@/schemas/team';
 import { z } from 'zod';
@@ -31,3 +32,6 @@ export type User = z.infer<typeof userSchema>;
 
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 export type TeamMemberForm = Pick<TeamMember, 'email'>;
+
+export type TaskNote = z.infer<typeof taskNoteSchema>;
+export type TaskNoteForm = Pick<TaskNote, 'content'>;

@@ -19,6 +19,7 @@ export type TaskType = Document & {
   updatedBy: {
     user: ObjectId;
     status: TaskStatus;
+    createdAt: Date;
   }[];
 };
 
@@ -40,6 +41,9 @@ const TaskSchema = new mongoose.Schema(
           type: String,
           enum: Object.values(taskStatus),
           default: taskStatus.PENDING
+        },
+        createdAt: {
+          type: Date
         }
       }
     ]

@@ -25,6 +25,14 @@ export const taskProjectSchema = z.object({
   updatedAt: z.string()
 });
 
+export const taskNoteSchema = z.object({
+  _id: z.string(),
+  content: z.string().min(1, 'Note cannot be empty'),
+  createdBy: userSchema,
+  createdAt: z.string(),
+  task: z.string()
+});
+
 export const taskSchema = z.object({
   _id: z.string(),
   name: z.string().nonempty(),
@@ -36,7 +44,15 @@ export const taskSchema = z.object({
       z.object({
         _id: z.string(),
         user: userSchema,
-        status: taskStatusSchema
+        status: taskStatusSchema,
+        createdAt: z.string()
+      })
+    )
+    .optional(),
+  notes: z
+    .array(
+      taskNoteSchema.extend({
+        createdBy: userSchema
       })
     )
     .optional(),
@@ -47,5 +63,7 @@ export const taskSchema = z.object({
 export const taskActivitySchema = z.object({
   _id: z.string(),
   user: userSchema,
-  status: taskStatusSchema
+  status: taskStatusSchema.optional(),
+  note: taskNoteSchema.optional(),
+  createdAt: z.string()
 });
