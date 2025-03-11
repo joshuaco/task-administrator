@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { CircleUserRound, Settings, LogOut } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/hooks/context/useAuthContext';
 
 function ProfileDropdown() {
@@ -28,13 +28,13 @@ function ProfileDropdown() {
         className='absolute right-0 w-56 mt-4 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
       >
         <MenuItem>
-          <a
-            href='#'
+          <Link
+            to='/profile'
             className='flex items-center gap-2 w-full px-4 py-2 text-base text-gray-600 hover:bg-gray-100'
           >
             <Settings size={20} className='text-gray-500' />
             Settings
-          </a>
+          </Link>
         </MenuItem>
         <MenuItem>
           <button
