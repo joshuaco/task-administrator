@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAuthContext } from '@/hooks/context/useAuthContext';
+import { useDeleteNote } from '@/hooks/notes/useDeleteNote';
 import { History, MessageSquare, Trash2 } from 'lucide-react';
 import { taskStatus } from '@/utils/status';
 import { TaskActivity } from '@/types';
@@ -11,6 +12,7 @@ interface TaskStatusLogProps {
 
 function TaskStatusLog({ activities }: TaskStatusLogProps) {
   const { user } = useAuthContext();
+  const { mutate: deleteNote, projectId, taskId } = useDeleteNote();
   const [showNoteForm, setShowNoteForm] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -27,6 +29,10 @@ function TaskStatusLog({ activities }: TaskStatusLogProps) {
     },
     [user]
   );
+
+  const handleDelete = (noteId: string) => {
+    deleteNote({ projectId, taskId, noteId });
+  };
 
   if (user)
     return (
@@ -106,7 +112,7 @@ function TaskStatusLog({ activities }: TaskStatusLogProps) {
                                 <button
                                   className='text-red-500'
                                   onClick={() => {
-                                    console.log(user._id, activity.user);
+                                    handleDelete(activity.note!._id);
                                   }}
                                 >
                                   <Trash2 className='h-4 w-4' />
