@@ -14,8 +14,7 @@ export default function Tabs() {
   const location = useLocation();
 
   return (
-    <div className='mb-10'>
-      {/* Elimina el select y ajusta el diseño para que sea responsive */}
+    <div className='mb-8'>
       <div className='border-b border-gray-200'>
         <nav className='flex space-x-8 overflow-x-auto' aria-label='Tabs'>
           {tabs.map((tab) => (
