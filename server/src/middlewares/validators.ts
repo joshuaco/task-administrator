@@ -121,3 +121,31 @@ export const noteContentValidator = () => {
     body('content').trim().notEmpty().withMessage('Note content is required')
   ];
 };
+
+export const updateProfileValidator = () => {
+  return [
+    body('name').trim().notEmpty().withMessage('Profile name is required'),
+    body('email').trim().notEmpty().isEmail().withMessage('Invalid Email')
+  ];
+};
+
+export const updateCurrentPasswordValidator = () => {
+  return [
+    body('current_password')
+      .trim()
+      .notEmpty()
+      .withMessage('Password is required'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('Password is required')
+      .isLength({ min: 8 })
+      .withMessage('Password must be at least 8 characters long'),
+    body('confirm_password').custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Passwords do not match');
+      }
+      return true;
+    })
+  ];
+};

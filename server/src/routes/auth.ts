@@ -5,7 +5,9 @@ import {
   authRegisterValidator,
   authUpdatePasswordValidator,
   emailValidator,
-  handleErrors
+  handleErrors,
+  updateCurrentPasswordValidator,
+  updateProfileValidator
 } from '../middlewares/validators';
 import { authenticate } from '../middlewares/auth';
 import AuthController from '../controllers/Auth';
@@ -57,5 +59,21 @@ router.post(
 );
 
 router.get('/user', authenticate, AuthController.getUser);
+
+router.put(
+  '/profile',
+  authenticate,
+  updateProfileValidator(),
+  handleErrors,
+  AuthController.updateProfile
+);
+
+router.post(
+  '/update-password',
+  authenticate,
+  updateCurrentPasswordValidator(),
+  handleErrors,
+  AuthController.updateCurrentPassword
+);
 
 export default router;

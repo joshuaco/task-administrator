@@ -197,6 +197,53 @@ class Auth {
     res.json({ user: req.user });
     return;
   };
+
+  static updateProfile = async (req: Request, res: Response) => {
+    const { name, email } = req.body;
+    const userExists = await UserModel.findOne({ email });
+
+    if (userExists && userExists.id !== req.user.id) {
+      res.status(409).json({ error: 'Email already in use' });
+      return;
+    }
+    try {
+      req.user.name = name;
+      req.user.email = email;
+
+      await req.user.save();
+      res.status(200).json({ message: 'Profile updated successfully' });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "There's an error, please try again later." });
+    }
+  };
+
+  static updateCurrentPassword = async (req: Request, res: Response) => {
+    const { current_password, password } = req.body;
+    const user = await UserModel.findById(req.user.id);
+
+    try {
+      const isCorrectPassword = await comparePassword(
+        current_password,
+        user.password
+      );
+
+      if (!isCorrectPassword) {
+        res.status(409).json({ error: 'Incorrect Password' });
+        return;
+      }
+
+      user.password = await hashPassword(password);
+      await user.save();
+
+      res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "There's an error, please try again later." });
+    }
+  };
 }
 
 export default Auth;
