@@ -27,8 +27,11 @@ export type RegisterFormData = Pick<
 >;
 export type ForgotPasswordForm = Pick<Auth, 'email'>;
 export type ResetPasswordForm = Pick<Auth, 'password' | 'password-confirm'>;
-
+export type UpdateUserPasswordForm = ResetPasswordForm & {
+  'current-password': string;
+};
 export type User = z.infer<typeof userSchema>;
+export type UserProfileForm = Omit<User, '_id'>;
 
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 export type TeamMemberForm = Pick<TeamMember, 'email'>;

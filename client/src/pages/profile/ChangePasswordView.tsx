@@ -1,5 +1,7 @@
+import ChangePasswordForm from '@/components/profile/forms/ChangePasswordForm';
+
 function ChangePasswordView() {
-  return <div>ChangePasswordView</div>;
+  return <ChangePasswordForm />;
 }
 
 export default ChangePasswordView;
