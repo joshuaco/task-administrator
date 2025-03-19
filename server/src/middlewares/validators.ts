@@ -149,3 +149,9 @@ export const updateCurrentPasswordValidator = () => {
     })
   ];
 };
+
+export const passwordValidator = () => {
+  return [
+    body('password').trim().notEmpty().withMessage('Password is required')
+  ];
+};

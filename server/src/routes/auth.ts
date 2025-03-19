@@ -6,6 +6,7 @@ import {
   authUpdatePasswordValidator,
   emailValidator,
   handleErrors,
+  passwordValidator,
   updateCurrentPasswordValidator,
   updateProfileValidator
 } from '../middlewares/validators';
@@ -74,6 +75,14 @@ router.post(
   updateCurrentPasswordValidator(),
   handleErrors,
   AuthController.updateCurrentPassword
+);
+
+router.post(
+  '/check-password',
+  authenticate,
+  passwordValidator(),
+  handleErrors,
+  AuthController.checkPassword
 );
 
 export default router;

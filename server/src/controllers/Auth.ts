@@ -244,6 +244,25 @@ class Auth {
         .json({ error: "There's an error, please try again later." });
     }
   };
+
+  static checkPassword = async (req: Request, res: Response) => {
+    const { password } = req.body;
+    const user = await UserModel.findById(req.user.id);
+
+    try {
+      const isCorrectPassword = await comparePassword(password, user.password);
+
+      if (!isCorrectPassword) {
+        res.status(409).json({ error: 'Incorrect Password' });
+        return;
+      }
+      res.status(200).json({ message: 'Correct Password' });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "There's an error, please try again later." });
+    }
+  };
 }
 
 export default Auth;
