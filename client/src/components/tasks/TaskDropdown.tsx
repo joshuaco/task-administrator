@@ -4,6 +4,7 @@ import { useGetTask } from '@/hooks/task/useGetTask';
 import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 import { isManager } from '@/utils/policies';
+import { useState } from 'react';
 import { Task } from '@/types';
 import {
   Menu,
@@ -12,6 +13,7 @@ import {
   MenuItems,
   Transition
 } from '@headlessui/react';
+import DeleteModal from '../modals/DeleteModal';
 
 interface TaskDropdownProps {
   task: Task;
@@ -22,6 +24,7 @@ interface TaskDropdownProps {
 function TaskDropdown({ task, userId, managerId }: TaskDropdownProps) {
   const navigate = useNavigate();
   const { projectId } = useGetTask();
+  const [openModal, setOpenModal] = useState(false);
   const { deleteTaskMutation } = useDeleteTask();
 
   const handleViewTask = () => {
@@ -83,9 +86,9 @@ function TaskDropdown({ task, userId, managerId }: TaskDropdownProps) {
                     <button
                       type='button'
                       className={`group flex items-center px-4 py-2 text-sm text-red-500 hover:text-red-600 w-full hover:bg-gray-100`}
-                      onClick={handleDeleteTask}
+                      onClick={() => setOpenModal(true)}
                     >
-                      <Trash2 className='h-5 w-5 mr-3 text-red-500 group-hover:text-red-600' />
+                      <Trash2 className='h-5 w-5 mr-3 text-red-500' />
                       Delete Task
                     </button>
                   </MenuItem>
@@ -95,7 +98,15 @@ function TaskDropdown({ task, userId, managerId }: TaskDropdownProps) {
           </Transition>
         </Menu>
       </div>
-      {/* Delete Modal */}
+      <DeleteModal
+        type='task'
+        id={task._id}
+        name={task.name}
+        title='Delete Task'
+        onClose={() => setOpenModal(false)}
+        onDelete={handleDeleteTask}
+        onShow={openModal}
+      />
     </>
   );
 }

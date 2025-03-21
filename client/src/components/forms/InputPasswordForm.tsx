@@ -31,7 +31,7 @@ function InputPasswordForm({ onClose, onDelete }: InputPasswordFormProps) {
 
   return (
     <form
-      className='mt-2 space-y-2'
+      className='mt-3 space-y-2'
       noValidate
       onSubmit={handleSubmit(handleForm)}
     >
