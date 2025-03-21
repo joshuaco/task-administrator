@@ -1,7 +1,12 @@
 import api from '@/lib/axios';
 import { isAxiosError } from 'axios';
 import { loginSchema, userSchema } from '@/schemas/auth';
-import { LoginFormData, RegisterFormData, ResetPasswordForm } from '@/types';
+import {
+  CheckPasswordForm,
+  LoginFormData,
+  RegisterFormData,
+  ResetPasswordForm
+} from '@/types';
 
 export async function createAccount(formData: RegisterFormData) {
   try {
@@ -94,6 +99,17 @@ export async function getUser() {
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data.message);
+    }
+    throw error;
+  }
+}
+
+export async function checkPassword(formData: CheckPasswordForm) {
+  try {
+    await api.post('/auth/check-password', formData);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data.error);
     }
     throw error;
   }

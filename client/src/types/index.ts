@@ -27,6 +27,7 @@ export type RegisterFormData = Pick<
 >;
 export type ForgotPasswordForm = Pick<Auth, 'email'>;
 export type ResetPasswordForm = Pick<Auth, 'password' | 'password-confirm'>;
+export type CheckPasswordForm = Pick<Auth, 'password'>;
 export type UpdateUserPasswordForm = ResetPasswordForm & {
   'current-password': string;
 };

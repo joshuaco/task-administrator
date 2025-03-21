@@ -78,6 +78,7 @@ function ProjectDropdown({ project, user }: ProjectDropdownProps) {
         </Menu>
       </div>
       <DeleteModal
+        type='project'
         title='Delete Project'
         name={project.projectName}
         id={project._id}
