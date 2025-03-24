@@ -10,11 +10,12 @@ import EditProject from '@/pages/projects/EditProject';
 import ProfileView from './pages/profile/ProfileView';
 import TasksView from '@/pages/tasks/TasksView';
 import Register from '@/pages/auth/Register';
+import NotFound from './pages/404/NotFound';
+import Profile from './layouts/Profile';
 import Login from '@/pages/auth/Login';
 import Auth from '@/layouts/Auth';
 import App from '@/layouts/App';
 import Home from '@/pages/Home';
-import Profile from './layouts/Profile';
 
 function router() {
   return (
@@ -47,6 +48,10 @@ function router() {
             path='/auth/forgot-password'
             element={<ForgotPasswordView />}
           />
+        </Route>
+
+        <Route element={<Auth />}>
+          <Route path='/404' element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

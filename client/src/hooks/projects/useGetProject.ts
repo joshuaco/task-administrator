@@ -9,7 +9,7 @@ export const useGetProject = () => {
   const { data: project, isError } = useQuery({
     queryKey: ['project', projectId],
     queryFn: () => getProjectById(projectId),
-    retry: 1
+    retry: false
   });
 
   return { project, isError, projectId };
