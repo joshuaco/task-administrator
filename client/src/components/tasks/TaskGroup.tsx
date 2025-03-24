@@ -78,13 +78,14 @@ function TaskGroup({ tasks, userId, managerId }: TaskGroupProps) {
     useUpdateStatus();
 
   const handleDragEnd = (e: DragEndEvent) => {
+    document.body.style.overflow = '';
     const { over, active } = e;
 
     if (over && active.data.current!.status !== over.id) {
       const taskId = active.id.toString();
       const status = over.id as TaskStatus;
-      updateStatusMutation({ projectId, taskId, status });
       updateStatusOptimistic(taskId, status);
+      updateStatusMutation({ projectId, taskId, status });
     }
   };
 

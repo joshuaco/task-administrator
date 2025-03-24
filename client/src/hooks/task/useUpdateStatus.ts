@@ -17,7 +17,8 @@ export const useUpdateStatus = () => {
       queryClient.invalidateQueries({ queryKey: ['project', projectId] });
       queryClient.invalidateQueries({ queryKey: ['task', viewTaskId] });
       toast.success(data);
-    }
+    },
+    retry: 1
   });
 
   const updateStatusOptimistic = (taskId: string, status: TaskStatus) => {

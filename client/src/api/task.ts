@@ -86,7 +86,7 @@ export const updateTaskStatus = async ({
     return data.message;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new Error(error.message);
     }
   }
 };

@@ -9,18 +9,23 @@ interface TaskCardProps {
 }
 
 function TaskCard({ task, userId, managerId }: TaskCardProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: task._id,
-    data: {
-      status: task.status
-    }
-  });
-
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task._id,
+      data: {
+        status: task.status
       }
-    : undefined;
+    });
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    transition: isDragging ? 'none' : 'transform 0.2s ease',
+    zIndex: isDragging ? 1000 : 1,
+    boxShadow: isDragging ? '0px 4px 12px rgba(0, 0, 0, 0.15)' : undefined,
+    position: isDragging ? 'relative' : undefined
+  } as React.CSSProperties;
 
   return (
     <li
