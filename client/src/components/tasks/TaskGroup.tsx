@@ -1,4 +1,4 @@
-import { Project, Task, TaskStatus } from '@/types';
+import { Task, TaskStatus } from '@/types';
 import { statusTitle } from '@/utils/status';
 import {
   DndContext,
@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import DropTasks from './DropTasks';
 import { useUpdateStatus } from '@/hooks/task/useUpdateStatus';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface TaskGroupProps {
   tasks: Task[];
@@ -75,8 +74,8 @@ function TaskGroup({ tasks, userId, managerId }: TaskGroupProps) {
     { ...initialStatusGroups }
   );
 
-  const queryClient = useQueryClient();
-  const { updateStatusMutation, projectId } = useUpdateStatus();
+  const { updateStatusMutation, updateStatusOptimistic, projectId } =
+    useUpdateStatus();
 
   const handleDragEnd = (e: DragEndEvent) => {
     const { over, active } = e;
@@ -85,17 +84,7 @@ function TaskGroup({ tasks, userId, managerId }: TaskGroupProps) {
       const taskId = active.id.toString();
       const status = over.id as TaskStatus;
       updateStatusMutation({ projectId, taskId, status });
-
-      queryClient.setQueryData<Project>(['project', projectId], (prevData) => {
-        if (!prevData) return prevData;
-        const updatedTasks = (prevData.tasks as Task[]).map((task: Task) => {
-          if (task._id === taskId) {
-            return { ...task, status };
-          }
-          return task;
-        });
-        return { ...prevData, tasks: updatedTasks };
-      });
+      updateStatusOptimistic(taskId, status);
     }
   };
 
