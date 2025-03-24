@@ -1,5 +1,12 @@
-import { Task } from '@/types';
+import { Project, Task, TaskStatus } from '@/types';
 import { statusTitle } from '@/utils/status';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
 import {
   CheckCircle2,
   CircleDashed,
@@ -7,7 +14,9 @@ import {
   Eye,
   PauseCircle
 } from 'lucide-react';
-import TaskCard from './TaskCard';
+import DropTasks from './DropTasks';
+import { useUpdateStatus } from '@/hooks/task/useUpdateStatus';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface TaskGroupProps {
   tasks: Task[];
@@ -66,45 +75,67 @@ function TaskGroup({ tasks, userId, managerId }: TaskGroupProps) {
     { ...initialStatusGroups }
   );
 
+  const queryClient = useQueryClient();
+  const { updateStatusMutation, projectId } = useUpdateStatus();
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { over, active } = e;
+
+    if (over && active.data.current!.status !== over.id) {
+      const taskId = active.id.toString();
+      const status = over.id as TaskStatus;
+      updateStatusMutation({ projectId, taskId, status });
+
+      queryClient.setQueryData<Project>(['project', projectId], (prevData) => {
+        if (!prevData) return prevData;
+        const updatedTasks = (prevData.tasks as Task[]).map((task: Task) => {
+          if (task._id === taskId) {
+            return { ...task, status };
+          }
+          return task;
+        });
+        return { ...prevData, tasks: updatedTasks };
+      });
+    }
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 120,
+        tolerance: 5
+      }
+    })
+  );
+
   return (
     <div className='space-y-6'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6'>
-        {Object.entries(groupedTasks).map(
-          ([status, { icon, color, tasks }]) => (
-            <div
-              key={status}
-              className='bg-white rounded-lg shadow-sm p-4 sm:p-6'
-            >
-              <div className='flex items-center justify-between mb-4'>
-                <div className='flex items-center space-x-2'>
-                  <span className={`p-2 rounded-lg ${color}`}>{icon}</span>
-                  <h2 className='text-lg font-semibold text-gray-900'>
-                    {statusTitle(status)}
-                  </h2>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          {Object.entries(groupedTasks).map(
+            ([status, { icon, color, tasks }]) => (
+              <div
+                key={status}
+                className='bg-white rounded-lg shadow-sm p-4 sm:p-6'
+              >
+                <div className='flex items-center justify-between mb-4'>
+                  <div className='flex items-center space-x-2'>
+                    <span className={`p-2 rounded-lg ${color}`}>{icon}</span>
+                    <h2 className='text-lg font-semibold text-gray-900'>
+                      {statusTitle(status)}
+                    </h2>
+                  </div>
                 </div>
+                <DropTasks
+                  tasks={tasks}
+                  userId={userId}
+                  managerId={managerId}
+                  status={status}
+                />
               </div>
-
-              <ul className='space-y-3'>
-                {tasks.length === 0 ? (
-                  <li className='border-2 border-dashed border-gray-200 rounded-lg p-4'>
-                    <p className='text-sm text-gray-500 text-center'>
-                      No tasks {statusTitle(status).toLowerCase()}
-                    </p>
-                  </li>
-                ) : (
-                  tasks.map((task) => (
-                    <TaskCard
-                      key={task._id}
-                      task={task}
-                      userId={userId}
-                      managerId={managerId}
-                    />
-                  ))
-                )}
-              </ul>
-            </div>
-          )
-        )}
+            )
+          )}
+        </DndContext>
       </div>
     </div>
   );

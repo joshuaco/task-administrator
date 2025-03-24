@@ -7,7 +7,7 @@ export const useUpdateStatus = () => {
   const queryClient = useQueryClient();
   const { projectId, viewTaskId } = useGetTask();
 
-  const { mutateAsync: updateStatusMutation } = useMutation({
+  const { mutate: updateStatusMutation } = useMutation({
     mutationFn: updateTaskStatus,
     onError: (error) => {
       toast.error(error.message);
@@ -19,5 +19,5 @@ export const useUpdateStatus = () => {
     }
   });
 
-  return { updateStatusMutation };
+  return { updateStatusMutation, projectId };
 };

@@ -44,6 +44,7 @@ function TaskDropdown({ task, userId, managerId }: TaskDropdownProps) {
       <div className='flex shrink-0 gap-x-6'>
         <Menu as='div' className='relative flex-none'>
           <MenuButton
+            data-no-dnd='true'
             className='-m-2.5 block p-2 text-gray-500 
         hover:text-gray-900 rounded-full hover:bg-gray-200 transition-colors'
           >

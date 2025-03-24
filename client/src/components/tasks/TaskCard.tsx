@@ -1,4 +1,5 @@
 import { Task } from '@/types';
+import { useDraggable } from '@dnd-kit/core';
 import TaskDropdown from './TaskDropdown';
 
 interface TaskCardProps {
@@ -8,10 +9,27 @@ interface TaskCardProps {
 }
 
 function TaskCard({ task, userId, managerId }: TaskCardProps) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: task._id,
+    data: {
+      status: task.status
+    }
+  });
+
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      }
+    : undefined;
+
   return (
     <li
+      {...listeners}
+      {...attributes}
+      ref={setNodeRef}
+      style={style}
       className='p-3 bg-gray-50 rounded-lg hover:bg-gray-100 
-      transition-colors flex justify-between gap-x-2'
+      transition-colors flex justify-between gap-x-2 cursor-grab active:cursor-grabbing'
     >
       <div className='min-w-0 flex flex-col gap-y-2'>
         <button
