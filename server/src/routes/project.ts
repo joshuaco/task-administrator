@@ -9,6 +9,8 @@ import {
   projectIDValidator
 } from '../middlewares/validators';
 import { authenticate } from '../middlewares/auth';
+import { projectExists } from '../middlewares/project';
+import { hasAuthorization } from '../middlewares/task';
 
 const router = Router();
 
@@ -17,7 +19,7 @@ router.use(authenticate);
 router.get('/', ProjectController.getAllProjects);
 
 router.get(
-  '/:id',
+  '/:projectID',
   projectIDValidator(),
   handleErrors,
   ProjectController.getProjectById
@@ -30,18 +32,22 @@ router.post(
   ProjectController.createProject
 );
 
+router.param('projectID', projectExists);
+
 router.put(
-  '/:id',
+  '/:projectID',
   projectIDValidator(),
   projectValidator(),
   handleErrors,
+  hasAuthorization,
   ProjectController.updateProject
 );
 
 router.delete(
-  '/:id',
+  '/:projectID',
   projectIDValidator(),
   handleErrors,
+  hasAuthorization,
   ProjectController.deleteProject
 );
 

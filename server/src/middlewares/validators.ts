@@ -31,7 +31,7 @@ export const projectValidator = () => {
 };
 
 export const projectIDValidator = () => {
-  return [param('id').isMongoId().withMessage('Invalid ID')];
+  return [param('projectID').isMongoId().withMessage('Invalid ID')];
 };
 
 export const taskIDValidator = () => {

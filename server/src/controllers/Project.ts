@@ -29,7 +29,7 @@ class Project {
 
   static getProjectById = async (req: Request, res: Response) => {
     try {
-      const project = await ProjectModel.findById(req.params.id).populate(
+      const project = await ProjectModel.findById(req.params.projectID).populate(
         'tasks',
         { name: 1, description: 1, status: 1, project: 1 }
       );
@@ -57,22 +57,8 @@ class Project {
 
   static updateProject = async (req: Request, res: Response) => {
     try {
-      const project = await ProjectModel.findById(req.params.id);
-
-      if (!project) {
-        res.status(404).json({ error: 'Project not found' });
-        return;
-      }
-
-      if (project.manager.toString() !== req.user.id) {
-        res
-          .status(401)
-          .json({ error: 'Only the manager can update this project' });
-        return;
-      }
-
       const updatedProject = await ProjectModel.findByIdAndUpdate(
-        req.params.id,
+        req.project.id,
         req.body,
         {
           new: true
@@ -89,25 +75,9 @@ class Project {
 
   static deleteProject = async (req: Request, res: Response) => {
     try {
-      const { id } = req.params;
-
-      const project = await ProjectModel.findById(id);
-
-      if (!project) {
-        res.status(404).json({ error: 'Project not found' });
-        return;
-      }
-
-      if (project.manager.toString() !== req.user.id) {
-        res
-          .status(401)
-          .json({ error: 'Only the manager can delete this project.' });
-        return;
-      }
-
       await Promise.allSettled([
-        TaskModel.deleteMany({ project: id }),
-        ProjectModel.findByIdAndDelete(id)
+        TaskModel.deleteMany({ project: req.project.id }),
+        ProjectModel.findByIdAndDelete(req.project.id)
       ]);
 
       res.status(200).json({ message: 'Project deleted successfully' });
